@@ -3,113 +3,156 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard ViraLens AI</title>
+    <title>ViraLens AI - Database Version</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root { --accent: #00d4ff; --bg: #000; --card: #0a0a0a; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { background: var(--bg); color: #fff; font-family: 'Inter', sans-serif; display: flex; height: 100vh; }
-        
         .sidebar { width: 250px; background: #050505; border-right: 1px solid #111; padding: 30px 20px; }
-        .sidebar h2 { color: var(--accent); margin-bottom: 30px; font-size: 1.2rem; }
+        .sidebar h2 { color: var(--accent); margin-bottom: 30px; }
         .nav-btn { width: 100%; padding: 12px; background: none; border: none; color: #888; text-align: left; cursor: pointer; border-radius: 8px; margin-bottom: 10px; font-weight: bold; }
         .nav-btn.active { background: rgba(0, 212, 255, 0.1); color: var(--accent); }
-
         .main { flex: 1; padding: 50px; overflow-y: auto; }
         .card { background: var(--card); border: 1px solid #1a1a1a; padding: 30px; border-radius: 20px; max-width: 700px; }
-        h1 { margin-bottom: 10px; font-size: 2rem; }
-        p.desc { color: #888; margin-bottom: 30px; }
-
-        textarea { width: 100%; height: 120px; background: #000; color: var(--accent); border: 1px solid #222; border-radius: 12px; padding: 15px; font-size: 1rem; margin-bottom: 20px; outline: none; }
-        .btn-action { background: var(--accent); color: #000; border: none; padding: 15px; border-radius: 10px; font-weight: 800; cursor: pointer; width: 100%; transition: 0.3s; }
-        .btn-action:disabled { background: #333; color: #777; cursor: not-allowed; }
-        
-        #resultBox { margin-top: 30px; padding: 20px; background: #050505; border-left: 4px solid var(--accent); border-radius: 8px; display: none; line-height: 1.6; }
-        .premium-box { margin-top: 15px; padding: 15px; background: rgba(255, 215, 0, 0.1); border: 1px solid gold; border-radius: 10px; color: gold; display: none; text-align: center; }
-        .btn-wa { display: inline-block; margin-top: 10px; padding: 10px 20px; background: #25d366; color: #fff; text-decoration: none; border-radius: 5px; font-weight: bold; }
+        textarea { width: 100%; height: 100px; background: #000; color: var(--accent); border: 1px solid #222; border-radius: 12px; padding: 15px; margin-bottom: 20px; outline: none; }
+        .btn-action { background: var(--accent); color: #000; border: none; padding: 15px; border-radius: 10px; font-weight: 800; cursor: pointer; width: 100%; }
+        #resultBox { margin-top: 30px; padding: 20px; background: #050505; border-left: 4px solid var(--accent); display: none; line-height: 1.6; }
     </style>
 </head>
 <body>
 
-    <div class="sidebar">
-        <h2>ViraLens AI</h2>
-        <button class="nav-btn active">✨ Ideator Engine</button>
-        <button class="nav-btn">📝 Script Writer</button>
+<div class="sidebar">
+    <h2>ViraLens AI</h2>
+    <button class="nav-btn active">✨ Ideator Engine</button>
+    <button class="nav-btn" onclick="alert('Fitur ini akan segera hadir!')">📝 Script Writer</button>
+</div>
+
+<div class="main">
+    <h1>Ideator Engine</h1>
+    <p style="color: #888; margin-bottom: 20px;">Versi Database - Cepat & Stabil</p>
+    <div class="card">
+        <textarea id="topicInput" placeholder="Ketik topik (contoh: sepatu, masak, gadget)..."></textarea>
+        <button class="btn-action" onclick="cariIde()">🚀 Temukan Ide Viral</button>
+        <div id="resultBox"></div>
     </div>
+</div>
 
-    <div class="main">
-        <h1>Ideator Engine</h1>
-        <p class="desc">Masukkan niche kamu untuk mendapatkan ide konten viral (Gratis 5x coba).</p>
+<script>
+const databaseIde = {
+    "affiliate": [
+        "Cara jualan affiliate tanpa modal untuk pemula dari nol.",
+        "Produk affiliate paling laku bulan ini (riset marketplace).",
+        "Script video affiliate 30 detik yang langsung closing."
+    ],
+    "konten": [
+        "Ide konten tanpa tampil muka yang tetap bisa viral.",
+        "Formula konten FYP: hook, value, CTA.",
+        "Kesalahan creator pemula yang bikin konten sepi view."
+    ],
+    "jualan": [
+        "Cara dapat 10 pembeli pertama tanpa iklan.",
+        "Strategi jualan di marketplace agar cepat naik.",
+        "Psikologi harga: kenapa Rp49.900 lebih laku dari Rp50.000."
+    ],
+    "bisnis": [
+        "Ide bisnis rumahan modal kecil tapi cepat balik modal.",
+        "Bisnis digital paling laku tahun ini.",
+        "Cara mulai bisnis dari nol tanpa pengalaman."
+    ],
+    "produk digital": [
+        "Produk digital paling gampang dijual untuk pemula.",
+        "Cara bikin e-book yang laku di marketplace.",
+        "Template digital yang selalu dicari orang."
+    ],
+    "ai": [
+        "Cara pakai AI untuk bikin konten 30 hari sekali klik.",
+        "Prompt AI untuk ide konten viral.",
+        "Tools AI gratis yang bantu kerja lebih cepat."
+    ],
+    "uang": [
+        "Cara dapat uang dari internet untuk pemula.",
+        "Skill online yang cepat menghasilkan.",
+        "Website penghasil uang yang legit."
+    ],
+    "resep": [
+        "Ide jualan makanan simple tapi laris.",
+        "Resep minuman viral modal kecil.",
+        "Menu diet murah tapi efektif."
+    ],
+    "skincare": [
+        "Urutan skincare basic untuk pemula.",
+        "Kesalahan skincare yang bikin jerawat makin parah.",
+        "Produk skincare murah tapi efektif."
+    ],
+    "fashion": [
+        "Outfit simple tapi kelihatan mahal.",
+        "Kesalahan fashion yang bikin terlihat pendek.",
+        "Mix and match baju basic."
+    ],
+    "gadget": [
+        "Aplikasi wajib di HP yang bikin hidup lebih produktif.",
+        "Setting HP agar tidak lemot.",
+        "Gadget murah tapi worth it."
+    ],
+    "produktif": [
+        "Cara disiplin tanpa motivasi.",
+        "Habit kecil yang mengubah hidup.",
+        "Sistem kerja fokus 1 jam tanpa distraksi."
+    ],
+    "kesehatan": [
+        "Cara turunkan berat badan tanpa olahraga berat.",
+        "Kebiasaan kecil yang bikin badan cepat capek.",
+        "Tips tidur cepat dan nyenyak."
+    ],
+    "website": [
+        "Cara bikin website gratis pakai GitHub.",
+        "Tools gratis untuk bikin website profesional.",
+        "Cara dapat trafik ke website baru."
+    ],
+    "seo": [
+        "Cara riset keyword untuk pemula.",
+        "Judul artikel yang pasti diklik orang.",
+        "Strategi SEO tanpa backlink."
+    ],
+    "umum": [
+        "3 skill yang wajib dipelajari tahun ini.",
+        "Hal kecil yang bikin hidup lebih terarah.",
+        "Cara mulai berubah tanpa harus nunggu motivasi."
+    ]
+};
+</script>
+    
+    function cariIde() {
+        const input = document.getElementById('topicInput').value.toLowerCase();
+        const resBox = document.getElementById('resultBox');
+        
+        if(!input) return alert("Ketik topiknya dulu!");
 
-        <div class="card">
-            <textarea id="topicInput" placeholder="Contoh: Jualan sepatu, Tips masak mie..."></textarea>
-            <button id="mainBtn" class="btn-action" onclick="generateIdea()">🚀 Cari Ide Viral</button>
-            
-            <div id="premiumBox" class="premium-box">
-                <p>⚠️ Kuota gratis harian kamu sudah habis!</p>
-                <a href="https://wa.me/628123456789?text=Halo%20ViraLens,%20saya%20ingin%20upgrade%20ke%20Premium" class="btn-wa" target="_blank">Upgrade ke Premium (Rp 29rb)</a>
-            </div>
+        resBox.style.display = "block";
+        resBox.innerHTML = "<em>🔎 Mencari di database...</em>";
 
-            <div id="resultBox"></div>
-        </div>
-    </div>
-
-    <script>
-        const API_KEY = "AIzaSyAxc7XlEU5cbfkyrcbwVwXHHadDvc0zUX8"; 
-
-        async function generateIdea() {
-            const topic = document.getElementById('topicInput').value;
-            const resBox = document.getElementById('resultBox');
-            const premiumBox = document.getElementById('premiumBox');
-            const mainBtn = document.getElementById('mainBtn');
-
-            // --- LOGIKA PEMBATAS KUOTA ---
-            let count = parseInt(localStorage.getItem("usage_count") || 0);
-
-            if (count >= 5) {
-                premiumBox.style.display = "block";
-                mainBtn.disabled = true;
-                return;
-            }
-            // -----------------------------
-
-            if (!topic) {
-                alert("Masukkan topik dulu ya!");
-                return;
-            }
-
-            resBox.style.display = "block";
-            resBox.innerHTML = "<em>⏳ Sedang memproses ide viral...</em>";
-
-            try {
-                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        contents: [{ parts: [{ text: "Berikan 3 ide konten viral singkat untuk niche: " + topic }] }]
-                    })
-                });
-
-                const data = await response.json();
-                
-                if (data.candidates) {
-                    const output = data.candidates[0].content.parts[0].text;
-                    resBox.innerHTML = "<strong>Hasil Ide AI:</strong><br><br>" + output.replace(/\*/g, "").replace(/\n/g, "<br>");
-                    
-                    // --- TAMBAH HITUNGAN SETELAH BERHASIL ---
-                    count++;
-                    localStorage.setItem("usage_count", count);
-                    // ---------------------------------------
-                    
-                } else {
-                    resBox.innerHTML = "❌ Error: API Key bermasalah. Pastikan API Key di project baru sudah benar.";
+        setTimeout(() => {
+            // Logika: Cari kata kunci yang cocok, jika tidak ada pakai 'umum'
+            let temukan = null;
+            for (let kunci in databaseIde) {
+                if (input.includes(kunci)) {
+                    temukan = databaseIde[kunci];
+                    break;
                 }
-            } catch (error) {
-                resBox.innerHTML = "❌ Gagal menyambung ke AI. Coba lagi.";
             }
-        }
-    </script>
+
+            const ideFinal = temukan || databaseIde["umum"];
+            let htmlHasil = "<strong>3 Ide Viral Untukmu:</strong><ul>";
+            ideFinal.forEach(item => {
+                htmlHasil += `<li>${item}</li>`;
+            });
+            htmlHasil += "</ul>";
+            
+            resBox.innerHTML = htmlHasil;
+        }, 800);
+    }
+</script>
+
 </body>
 </html>
-
-
