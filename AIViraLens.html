@@ -9,15 +9,48 @@
         :root { --accent: #00d4ff; --bg: #000; --card: #0a0a0a; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { background: var(--bg); color: #fff; font-family: 'Inter', sans-serif; display: flex; height: 100vh; }
+        
+        /* Sidebar */
         .sidebar { width: 250px; background: #050505; border-right: 1px solid #111; padding: 30px 20px; }
-        .sidebar h2 { color: var(--accent); margin-bottom: 30px; }
-        .nav-btn { width: 100%; padding: 12px; background: none; border: none; color: #888; text-align: left; cursor: pointer; border-radius: 8px; margin-bottom: 10px; font-weight: bold; }
+        .sidebar h2 { color: var(--accent); margin-bottom: 30px; font-size: 1.5rem; font-weight: 800; }
+        .nav-btn { width: 100%; padding: 12px; background: none; border: none; color: #888; text-align: left; cursor: pointer; border-radius: 8px; margin-bottom: 10px; font-weight: bold; transition: 0.3s; }
         .nav-btn.active { background: rgba(0, 212, 255, 0.1); color: var(--accent); }
+        .nav-btn:hover { color: #fff; background: #111; }
+
+        /* Main Area */
         .main { flex: 1; padding: 50px; overflow-y: auto; }
-        .card { background: var(--card); border: 1px solid #1a1a1a; padding: 30px; border-radius: 20px; max-width: 700px; }
-        textarea { width: 100%; height: 100px; background: #000; color: var(--accent); border: 1px solid #222; border-radius: 12px; padding: 15px; margin-bottom: 20px; outline: none; }
-        .btn-action { background: var(--accent); color: #000; border: none; padding: 15px; border-radius: 10px; font-weight: 800; cursor: pointer; width: 100%; }
-        #resultBox { margin-top: 30px; padding: 20px; background: #050505; border-left: 4px solid var(--accent); display: none; line-height: 1.6; }
+        .card { background: var(--card); border: 1px solid #1a1a1a; padding: 30px; border-radius: 20px; max-width: 700px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        h1 { margin-bottom: 10px; font-size: 2rem; font-weight: 800; }
+        p.desc { color: #888; margin-bottom: 30px; }
+
+        textarea { 
+            width: 100%; height: 100px; background: #000; color: var(--accent); 
+            border: 1px solid #222; border-radius: 12px; padding: 15px; 
+            font-size: 1rem; margin-bottom: 20px; outline: none; resize: none;
+            transition: 0.3s;
+        }
+        textarea:focus { border-color: var(--accent); }
+
+        .btn-action { 
+            background: var(--accent); color: #000; border: none; padding: 15px; 
+            border-radius: 10px; font-weight: 800; cursor: pointer; width: 100%; 
+            transition: 0.3s;
+        }
+        .btn-action:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0, 212, 255, 0.3); }
+
+        /* Hasil */
+        #resultBox { 
+            margin-top: 30px; padding: 20px; background: #050505; 
+            border-left: 4px solid var(--accent); border-radius: 8px; 
+            display: none; line-height: 1.8; animation: slideIn 0.4s ease;
+        }
+        ul { margin-left: 20px; margin-top: 10px; }
+        li { margin-bottom: 8px; }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body>
@@ -30,9 +63,9 @@
 
 <div class="main">
     <h1>Ideator Engine</h1>
-    <p style="color: #888; margin-bottom: 20px;">Versi Database - Cepat & Stabil</p>
+    <p class="desc">Versi Database - Cepat, Stabil & Tanpa Limit</p>
     <div class="card">
-        <textarea id="topicInput" placeholder="Ketik topik (contoh: sepatu, masak, gadget)..."></textarea>
+        <textarea id="topicInput" placeholder="Ketik topik (contoh: affiliate, masak, skincare, ai)..."></textarea>
         <button class="btn-action" onclick="cariIde()">🚀 Temukan Ide Viral</button>
         <div id="resultBox"></div>
     </div>
@@ -80,6 +113,11 @@ const databaseIde = {
         "Resep minuman viral modal kecil.",
         "Menu diet murah tapi efektif."
     ],
+    "masak": [
+        "Ide jualan makanan simple tapi laris.",
+        "Resep minuman viral modal kecil.",
+        "Menu diet murah tapi efektif."
+    ],
     "skincare": [
         "Urutan skincare basic untuk pemula.",
         "Kesalahan skincare yang bikin jerawat makin parah.",
@@ -121,37 +159,36 @@ const databaseIde = {
         "Cara mulai berubah tanpa harus nunggu motivasi."
     ]
 };
-</script>
+
+function cariIde() {
+    const input = document.getElementById('topicInput').value.toLowerCase();
+    const resBox = document.getElementById('resultBox');
     
-    function cariIde() {
-        const input = document.getElementById('topicInput').value.toLowerCase();
-        const resBox = document.getElementById('resultBox');
-        
-        if(!input) return alert("Ketik topiknya dulu!");
+    if(!input.trim()) return alert("Ketik topiknya dulu!");
 
-        resBox.style.display = "block";
-        resBox.innerHTML = "<em>🔎 Mencari di database...</em>";
+    resBox.style.display = "block";
+    resBox.innerHTML = "<em>🔎 Mencari di database...</em>";
 
-        setTimeout(() => {
-            // Logika: Cari kata kunci yang cocok, jika tidak ada pakai 'umum'
-            let temukan = null;
-            for (let kunci in databaseIde) {
-                if (input.includes(kunci)) {
-                    temukan = databaseIde[kunci];
-                    break;
-                }
+    setTimeout(() => {
+        let temukan = null;
+        // Mencari apakah ada kata kunci di dalam input
+        for (let kunci in databaseIde) {
+            if (input.includes(kunci)) {
+                temukan = databaseIde[kunci];
+                break;
             }
+        }
 
-            const ideFinal = temukan || databaseIde["umum"];
-            let htmlHasil = "<strong>3 Ide Viral Untukmu:</strong><ul>";
-            ideFinal.forEach(item => {
-                htmlHasil += `<li>${item}</li>`;
-            });
-            htmlHasil += "</ul>";
-            
-            resBox.innerHTML = htmlHasil;
-        }, 800);
-    }
+        const ideFinal = temukan || databaseIde["umum"];
+        let htmlHasil = "<strong>3 Ide Viral Untukmu:</strong><ul>";
+        ideFinal.forEach(item => {
+            htmlHasil += `<li>${item}</li>`;
+        });
+        htmlHasil += "</ul>";
+        
+        resBox.innerHTML = htmlHasil;
+    }, 600);
+}
 </script>
 
 </body>
