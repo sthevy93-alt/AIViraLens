@@ -14,14 +14,14 @@
             background-color: var(--bg); 
             color: #fff; 
         }
-        /* Grid System yang Stabil */
+        /* Memperbaiki Bento Grid agar tinggi konten fleksibel */
         .bento-container {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            grid-auto-rows: minmax(300px, auto);
+            grid-auto-rows: minmax(280px, auto);
             gap: 1.5rem;
         }
-        @media (max-width: 1024px) {
+        @media (max-width: 768px) {
             .bento-container { grid-template-columns: 1fr; }
         }
         .bento-card {
@@ -32,8 +32,6 @@
             transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
             position: relative;
             overflow: hidden;
-            display: flex;
-            flex-direction: column;
         }
         .bento-card:hover {
             background: rgba(255, 255, 255, 0.06);
@@ -45,144 +43,112 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        /* Custom Scrollbar untuk Review */
-        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
-        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { 
-            background: rgba(124, 58, 237, 0.3); 
-            border-radius: 10px; 
+        .glow-bg {
+            position: absolute;
+            top: 0; left: 50%; transform: translateX(-50%);
+            width: 100%; height: 500px;
+            background: radial-gradient(circle, rgba(124, 58, 237, 0.12) 0%, transparent 70%);
+            z-index: -1;
         }
     </style>
 </head>
-<body class="antialiased text-white">
+<body class="antialiased">
 
     <nav class="fixed w-full z-50 border-b border-white/5 bg-black/80 backdrop-blur-md py-4 px-6">
         <div class="container mx-auto flex justify-between items-center">
             <div class="flex items-center gap-2 font-bold text-xl tracking-tighter">
-                <div class="w-7 h-7 bg-purple-600 rounded-lg flex items-center justify-center text-xs text-white">VL</div>
+                <div class="w-7 h-7 bg-purple-600 rounded-lg flex items-center justify-center text-xs">VL</div>
                 AI ViraLens
             </div>
             <div class="hidden md:flex gap-8 text-sm font-medium text-gray-400">
-                <a href="#demo" class="hover:text-white transition">Fitur</a>
+                <a href="#features" class="hover:text-white transition">Fitur</a>
                 <a href="#pricing" class="hover:text-white transition">Pricing</a>
                 <a href="#testimonials" class="hover:text-white transition">Testimonial</a>
             </div>
-            <a href="#signup" class="bg-white text-black px-6 py-2 rounded-full text-sm font-bold hover:bg-purple-600 hover:text-white transition-all">Sign Up</a>
+            <button class="bg-white text-black px-6 py-2 rounded-full text-sm font-bold hover:bg-purple-500 hover:text-white transition-all">Sign Up</button>
         </div>
     </nav>
 
-    <section class="relative pt-48 pb-20 px-6 text-center overflow-hidden">
-        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[500px] bg-purple-600/10 blur-[120px] -z-10"></div>
+    <section class="relative pt-48 pb-20 px-6 text-center">
+        <div class="glow-bg"></div>
         <div class="container mx-auto">
             <h1 class="text-6xl md:text-8xl font-black tracking-tighter text-gradient leading-[1] mb-8">
                 Jadilah Viral <br> Secara Cerdas.
             </h1>
             <p class="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed">
-                Prediksi tren TikTok & Instagram menggunakan AI. Jangan biarkan algoritma mengontrol Anda. Bergabunglah dengan masa depan konten.
+                Prediksi tren TikTok & Instagram menggunakan AI. <br class="hidden md:block"> Jangan biarkan algoritma mengontrol Anda.
             </p>
             <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <a href="#signup" class="bg-purple-600 hover:bg-purple-700 text-white px-10 py-4 rounded-2xl font-bold text-lg transition-all shadow-xl shadow-purple-500/20">Sign Up Sekarang</a>
-                <a href="#demo" class="bg-white/5 hover:bg-white/10 border border-white/10 text-white px-10 py-4 rounded-2xl font-bold text-lg transition-all">Lihat Demo</a>
+                <button class="bg-purple-600 hover:bg-purple-700 text-white px-10 py-4 rounded-2xl font-bold text-lg transition-all shadow-xl shadow-purple-500/20">Sign Up Sekarang</button>
+                <button class="bg-white/5 hover:bg-white/10 border border-white/10 text-white px-10 py-4 rounded-2xl font-bold text-lg transition-all">Lihat Demo</button>
             </div>
         </div>
     </section>
 
-    <section class="py-20 px-6 container mx-auto">
+    <section id="features" class="py-20 px-6 container mx-auto">
         <div class="bento-container">
             
-            <div id="demo" class="md:col-span-2 bento-card">
-                <div class="flex justify-between items-start mb-6">
-                    <div>
-                        <h3 class="text-3xl font-bold">Real-time Analytics</h3>
-                        <p class="text-gray-400 mt-2">Pantau performa konten Anda secara instan.</p>
-                    </div>
-                    <i data-lucide="bar-chart-3" class="text-purple-500"></i>
+            <div class="md:col-span-2 bento-card flex flex-col justify-between">
+                <div>
+                    <h3 class="text-3xl font-bold mb-4">Real-time Analytics</h3>
+                    <p class="text-gray-400 max-w-md">Pantau performa konten Anda dan dapatkan rekomendasi jam posting secara instan.</p>
                 </div>
-                <div class="mt-auto bg-white/5 border border-white/10 rounded-2xl p-6 h-48 flex items-end gap-3">
-                    <div class="flex-1 bg-purple-500/20 h-1/2 rounded-t-md animate-pulse"></div>
-                    <div class="flex-1 bg-purple-500/40 h-3/4 rounded-t-md animate-pulse"></div>
-                    <div class="flex-1 bg-purple-500/60 h-2/3 rounded-t-md animate-pulse"></div>
+                <div class="mt-8 bg-white/5 border border-white/10 rounded-xl p-6 h-48 flex items-end gap-3">
+                    <div class="flex-1 bg-purple-500/20 h-1/2 rounded-t-md"></div>
+                    <div class="flex-1 bg-purple-500/40 h-3/4 rounded-t-md"></div>
+                    <div class="flex-1 bg-purple-500/60 h-2/3 rounded-t-md"></div>
                     <div class="flex-1 bg-purple-600 h-full rounded-t-md shadow-[0_0_20px_rgba(124,58,237,0.4)]"></div>
                 </div>
             </div>
 
-            <div id="testimonials" class="md:row-span-2 bento-card">
-                <h3 class="text-xl font-bold mb-6 flex items-center gap-2">
-                    <i data-lucide="users" class="w-5 text-purple-500"></i> Review Kreator
-                </h3>
-                <div class="space-y-4 overflow-y-auto pr-2 custom-scrollbar h-[500px]">
-                    <div class="bg-white/5 p-4 rounded-xl border border-white/5">
-                        <div class="flex text-yellow-500 mb-2"><i data-lucide="star" class="w-3 fill-current"></i><i data-lucide="star" class="w-3 fill-current"></i><i data-lucide="star" class="w-3 fill-current"></i><i data-lucide="star" class="w-3 fill-current"></i><i data-lucide="star" class="w-3 fill-current"></i></div>
-                        <p class="text-[11px] text-gray-400 italic">"Engagement saya naik 300% dalam 2 bulan! Prediksinya akurat."</p>
-                        <p class="text-[10px] font-bold mt-2 text-purple-400">Sarah Wijaya — Creator</p>
-                    </div>
-                    <div class="bg-white/5 p-4 rounded-xl border border-white/5">
-                        <div class="flex text-yellow-500 mb-2"><i data-lucide="star" class="w-3 fill-current"></i><i data-lucide="star" class="w-3 fill-current"></i><i data-lucide="star" class="w-3 fill-current"></i><i data-lucide="star" class="w-3 fill-current"></i><i data-lucide="star" class="w-3 fill-current"></i></div>
-                        <p class="text-[11px] text-gray-400 italic">"Gak perlu pusing riset konten lagi. Sangat membantu UMKM."</p>
-                        <p class="text-[10px] font-bold mt-2 text-purple-400">Budi Santoso — UMKM</p>
-                    </div>
-                    <div class="bg-white/5 p-4 rounded-xl border border-white/5">
-                        <div class="flex text-yellow-500 mb-2"><i data-lucide="star" class="w-3 fill-current"></i><i data-lucide="star" class="w-3 fill-current"></i><i data-lucide="star" class="w-3 fill-current"></i><i data-lucide="star" class="w-3 fill-current"></i><i data-lucide="star" class="w-3 fill-current"></i></div>
-                        <p class="text-[11px] text-gray-400 italic">"Hemat waktu 10 jam seminggu. Konten selalu fresh!"</p>
-                        <p class="text-[10px] font-bold mt-2 text-purple-400">Rina Kusuma — Marketer</p>
-                    </div>
-                    <div class="bg-white/5 p-4 rounded-xl border border-white/5">
-                        <div class="flex text-yellow-500 mb-2"><i data-lucide="star" class="w-3 fill-current"></i><i data-lucide="star" class="w-3 fill-current"></i><i data-lucide="star" class="w-3 fill-current"></i><i data-lucide="star" class="w-3 fill-current"></i><i data-lucide="star" class="w-3 fill-current"></i></div>
-                        <p class="text-[11px] text-gray-400 italic">"Dashboard analytics-nya gila! Detail banget datanya."</p>
-                        <p class="text-[10px] font-bold mt-2 text-purple-400">Ahmad Fauzi — Manager</p>
-                    </div>
-                    <div class="bg-white/5 p-4 rounded-xl border border-white/5">
-                        <div class="flex text-yellow-500 mb-2"><i data-lucide="star" class="w-3 fill-current"></i><i data-lucide="star" class="w-3 fill-current"></i><i data-lucide="star" class="w-3 fill-current"></i><i data-lucide="star" class="w-3 fill-current"></i><i data-lucide="star" class="w-3 fill-current"></i></div>
-                        <p class="text-[11px] text-gray-400 italic">"Video routinely enters FYP thanks to AI hooks. Highly recommended!"</p>
-                        <p class="text-[10px] font-bold mt-2 text-purple-400">Dinda Nastiti — Blogger</p>
-                    </div>
-                </div>
-            </div>
-
             <div id="pricing" class="bento-card border-purple-500/30 bg-purple-500/5">
-                <span class="text-[10px] font-bold text-purple-400 uppercase tracking-widest">Paling Populer</span>
+                <span class="text-xs font-bold text-purple-400 uppercase tracking-widest">Paling Populer</span>
                 <h3 class="text-2xl font-bold mt-2">Creator Pro</h3>
-                <div class="my-6">
-                    <div class="text-4xl font-black italic tracking-tighter text-white">Rp 299k<span class="text-xs font-normal text-gray-500">/bln</span></div>
-                </div>
-                <ul class="text-[11px] text-gray-400 space-y-3 mb-8">
-                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-3 text-purple-500"></i> Unlimited AI Script</li>
-                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-3 text-purple-500"></i> Real-time Trend Tracker</li>
-                </ul>
-                <button class="w-full bg-white text-black py-4 rounded-xl font-bold text-sm hover:bg-purple-600 hover:text-white transition-all">Langganan</button>
+                <p class="text-gray-400 text-sm mt-2 mb-6">Cocok untuk influencer pemula.</p>
+                <div class="text-4xl font-black mb-8">Rp 149k <span class="text-sm font-normal text-gray-500">/bln</span></div>
+                <button class="w-full bg-white text-black py-4 rounded-xl font-bold text-sm hover:invert transition">Langganan</button>
             </div>
 
-            <div id="blog" class="bento-card group">
-                <div class="flex justify-between items-start">
-                    <h3 class="text-xl font-bold">Blog Tips</h3>
-                    <i data-lucide="arrow-up-right" class="group-hover:translate-x-1 group-hover:-translate-y-1 transition text-purple-500"></i>
-                </div>
-                <div class="mt-6 space-y-4">
-                    <div class="border-b border-white/5 pb-2">
-                        <p class="text-[10px] text-purple-400 uppercase">Feb 2026</p>
-                        <p class="text-sm font-bold">10 Strategi TikTok 2026</p>
-                    </div>
+            <div id="testimonials" class="bento-card">
+                <div class="flex gap-1 text-yellow-500 mb-6"><i data-lucide="star" class="w-4 fill-current"></i><i data-lucide="star" class="w-4 fill-current"></i><i data-lucide="star" class="w-4 fill-current"></i><i data-lucide="star" class="w-4 fill-current"></i><i data-lucide="star" class="w-4 fill-current"></i></div>
+                <p class="text-gray-300 italic mb-8">"ViraLens membantu saya mencapai 100k followers dalam 3 bulan pertama."</p>
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-gradient-to-tr from-purple-500 to-blue-500 rounded-full"></div>
                     <div>
-                        <p class="text-[10px] text-purple-400 uppercase">AI Update</p>
-                        <p class="text-sm font-bold">Cara Pakai AI Riset Hashtag</p>
+                        <p class="text-sm font-bold">Andi Pratama</p>
+                        <p class="text-[10px] text-gray-500">Tech Influencer</p>
                     </div>
+                </div>
+            </div>
+
+            <div id="blog" class="md:col-span-2 bento-card flex flex-col md:flex-row gap-8 items-center">
+                <div class="flex-1">
+                    <h3 class="text-2xl font-bold mb-4">Tips & Resources</h3>
+                    <p class="text-gray-400 text-sm mb-6">Pelajari strategi terbaru dari para ahli konten global secara gratis di blog kami.</p>
+                    <button class="text-purple-400 font-bold flex items-center gap-2 hover:gap-4 transition-all">Baca Artikel <i data-lucide="move-right"></i></button>
+                </div>
+                <div class="flex-1 w-full grid grid-cols-2 gap-3">
+                    <div class="aspect-square bg-white/5 rounded-2xl border border-white/5 overflow-hidden p-4 flex items-center justify-center text-center text-[10px]">Strategi TikTok 2026</div>
+                    <div class="aspect-square bg-white/5 rounded-2xl border border-white/5 overflow-hidden p-4 flex items-center justify-center text-center text-[10px]">Optimasi Algoritma</div>
                 </div>
             </div>
 
         </div>
     </section>
 
-    <section id="signup" class="py-24 px-6 text-center">
-        <div class="max-w-4xl mx-auto bento-card border-purple-500/20 py-16 px-8">
-            <h2 class="text-4xl font-black mb-4">Mulai Dominasi FYP.</h2>
-            <p class="text-gray-400 mb-8">Dapatkan akses ke 10,000+ database tren setiap hari.</p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <input type="email" placeholder="Email Anda" class="w-full sm:w-80 bg-white/5 border border-white/10 px-6 py-4 rounded-2xl focus:outline-none focus:border-purple-600">
-                <button class="bg-purple-600 px-10 py-4 rounded-2xl font-bold hover:bg-purple-700 transition w-full sm:w-auto">Sign Up Gratis</button>
+    <footer class="py-20 px-6 border-t border-white/5 text-center">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold mb-8">Siap Mendominasi FYP?</h2>
+            <button class="bg-white text-black px-12 py-4 rounded-2xl font-bold mb-12 hover:bg-purple-500 hover:text-white transition-all">Mulai Sekarang</button>
+            <div class="flex justify-center gap-8 text-gray-500 text-xs font-medium">
+                <a href="#">Privacy</a>
+                <a href="#">Terms</a>
+                <a href="#">Twitter</a>
+                <a href="#">Instagram</a>
             </div>
+            <p class="mt-8 text-gray-700 text-[10px] uppercase tracking-[0.2em]">© 2026 AI ViraLens – Powered by AI</p>
         </div>
-        <p class="mt-20 text-[10px] text-gray-700 tracking-[0.3em] uppercase">© 2026 AI ViraLens • Premium Content Engine</p>
-    </section>
+    </footer>
 
     <script>lucide.createIcons();</script>
 </body>
