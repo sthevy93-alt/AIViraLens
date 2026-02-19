@@ -3,153 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ViraLens AI - Konten Viral Instan</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
+    <title>ViraLens - AI Content Strategy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        :root { --accent: #00d4ff; --bg: #000; --card: #0a0a0a; --nav-bg: #050505; }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: var(--bg); color: #fff; font-family: 'Inter', sans-serif; overflow: hidden; }
-
-        /* --- 1. LANDING PAGE (DITAMPILKAN PERTAMA) --- */
-        #hero-page {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            background: radial-gradient(circle at center, #001a1a 0%, #000 100%);
-            padding: 20px;
-            z-index: 10;
-        }
-        #hero-page h1 { font-size: 3.5rem; font-weight: 800; line-height: 1.1; margin-bottom: 20px; }
-        #hero-page h1 span { color: var(--accent); }
-        #hero-page p { color: #888; max-width: 600px; margin-bottom: 40px; font-size: 1.1rem; }
-        
-        /* Tombol Biru Besar */
-        .btn-mulai {
-            background: var(--accent);
-            color: #000;
-            border: none;
-            padding: 20px 50px;
-            border-radius: 50px;
-            font-size: 1.2rem;
-            font-weight: 800;
-            cursor: pointer;
-            transition: 0.3s;
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
-        }
-        .btn-mulai:hover { transform: scale(1.05); box-shadow: 0 0 40px rgba(0, 212, 255, 0.6); }
-
-        /* --- 2. DASHBOARD UTAMA (HIDDEN SECARA DEFAULT) --- */
-        #main-dashboard {
-            display: none; /* Disembunyikan dulu */
-            height: 100vh;
-            grid-template-columns: 260px 1fr;
-        }
-
-        /* Sidebar */
-        .sidebar { background: var(--nav-bg); border-right: 1px solid #111; padding: 30px 20px; display: flex; flex-direction: column; }
-        .sidebar h2 { color: var(--accent); margin-bottom: 30px; font-size: 1.5rem; font-weight: 800; }
-        .nav-btn { width: 100%; padding: 14px; background: none; border: none; color: #888; text-align: left; cursor: pointer; border-radius: 10px; margin-bottom: 8px; font-weight: bold; transition: 0.3s; }
-        .nav-btn.active { background: rgba(0, 212, 255, 0.1); color: var(--accent); border: 1px solid rgba(0, 212, 255, 0.2); }
-        .nav-btn:hover:not(.active) { background: #111; color: #fff; }
-
-        /* Konten */
-        .main-container { flex: 1; padding: 50px; overflow-y: auto; }
-        .app-panel { display: none; animation: fadeIn 0.4s ease; }
-        .app-panel.active { display: block; }
-        
-        .card { background: var(--card); border: 1px solid #1a1a1a; padding: 35px; border-radius: 20px; max-width: 800px; }
-        h1.panel-title { font-size: 2.2rem; font-weight: 800; margin-bottom: 10px; }
-        p.panel-desc { color: #888; margin-bottom: 30px; }
-
-        textarea { width: 100%; height: 120px; background: #000; color: var(--accent); border: 1px solid #222; border-radius: 15px; padding: 15px; font-size: 1rem; margin-bottom: 20px; outline: none; }
-        .btn-action { background: var(--accent); color: #000; border: none; padding: 16px; border-radius: 12px; font-weight: 800; cursor: pointer; width: 100%; transition: 0.3s; }
-        
-        .result-box { margin-top: 25px; padding: 20px; background: #050505; border-left: 4px solid var(--accent); border-radius: 10px; display: none; line-height: 1.6; }
-
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #050505; color: white; }
+        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .bg-gradient-hero { background: radial-gradient(circle at 50% 50%, #3b0764 0%, #050505 70%); }
     </style>
 </head>
 <body>
 
-    <div id="hero-page">
-        <h1>Ubah Ide Mentah Menjadi<br><span>Konten Viral</span> dalam<br>Hitungan Detik.</h1>
-        <p>Gunakan teknologi AI ViraLens untuk mendominasi algoritma tanpa lelah berpikir.</p>
-        <button class="btn-mulai" onclick="jalankanApp()">Mulai Buat Konten Gratis</button>
-    </div>
-
-    <div id="main-dashboard">
-        <aside class="sidebar">
-            <h2>ViraLens AI</h2>
-            <button class="nav-btn active" onclick="switchTab('ideator', this)">✨ Ideator Engine</button>
-            <button class="nav-btn" onclick="switchTab('writer', this)">📝 Script Writer</button>
-            <button class="nav-btn" onclick="switchTab('visual', this)">🎨 Visual Assistant</button>
-            <button class="nav-btn" onclick="switchTab('calendar', this)">📅 Content Calendar</button>
-        </aside>
-
-        <main class="main-container">
-            <div id="tab-ideator" class="app-panel active">
-                <h1 class="panel-title">Ideator Engine</h1>
-                <p class="panel-desc">Temukan tren sebelum viral dan hasilkan ribuan ide konten unik sesuai niche Anda.</p>
-                <div class="card">
-                    <textarea id="in-ideator" placeholder="Contoh: Affiliate, Skincare, Masak..."></textarea>
-                    <button class="btn-action" onclick="runIdeator()">🚀 Cari Ide Viral</button>
-                    <div id="out-ideator" class="result-box"></div>
-                </div>
+    <nav class="fixed w-full z-50 glass py-4">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <div class="text-2xl font-bold bg-gradient-to-r from-purple-400 to-blue-500 text-transparent bg-clip-text">ViraLens</div>
+            <div class="hidden md:flex space-x-8 text-sm font-medium">
+                <a href="#features" class="hover:text-purple-400 transition">Fitur</a>
+                <a href="#pricing" class="hover:text-purple-400 transition">Harga</a>
+                <a href="#blog" class="hover:text-purple-400 transition">Blog</a>
             </div>
+            <button class="bg-white text-black px-6 py-2 rounded-full font-bold text-sm hover:bg-gray-200 transition">Sign Up Gratis</button>
+        </div>
+    </nav>
 
-            <div id="tab-writer" class="app-panel">
-                <h1 class="panel-title">Script Writer</h1>
-                <p class="panel-desc">Tulis skrip yang memicu retensi tinggi untuk video Anda.</p>
-                <div class="card">
-                    <textarea id="in-writer" placeholder="Topik video yang ingin dibuat script-nya..."></textarea>
-                    <button class="btn-action" onclick="runWriter()">✍️ Buat Script</button>
-                    <div id="out-writer" class="result-box"></div>
-                </div>
+    <section class="pt-32 pb-20 bg-gradient-hero relative overflow-hidden">
+        <div class="container mx-auto px-6 text-center relative z-10">
+            <span class="px-4 py-1 rounded-full border border-purple-500/30 text-purple-400 text-xs font-semibold mb-6 inline-block">✨ AI-Powered Content Engine</span>
+            <h1 class="text-5xl md:text-7xl font-extrabold mb-6 leading-tight">
+                Ubah Ide Menjadi <br> <span class="text-purple-500">Konten Viral</span>
+            </h1>
+            <p class="text-gray-400 text-lg max-w-2xl mx-auto mb-10">
+                Lupakan kebuntuan ide. Biarkan AI kami menganalisis tren global dan membuatkan skrip konten yang pasti memikat audiens Anda.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <button class="bg-gradient-to-r from-purple-600 to-blue-600 px-8 py-4 rounded-xl font-bold hover:shadow-[0_0_20px_rgba(147,51,234,0.5)] transition">Coba Gratis Sekarang</button>
+                <button class="glass px-8 py-4 rounded-xl font-bold hover:bg-white/10 transition">Lihat Cara Kerja</button>
             </div>
+        </div>
+    </section>
 
-            </main>
-    </div>
+    <section id="features" class="py-20 container mx-auto px-6">
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="glass p-8 rounded-3xl hover:border-purple-500/50 transition">
+                <div class="w-12 h-12 bg-purple-600/20 rounded-lg flex items-center justify-center mb-6 text-purple-400">📊</div>
+                <h3 class="text-xl font-bold mb-4">Analisis Tren Real-time</h3>
+                <p class="text-gray-400 text-sm">Ketahui apa yang sedang trending di TikTok & Instagram sebelum kompetitor Anda menyadarinya.</p>
+            </div>
+            <div class="glass p-8 rounded-3xl hover:border-purple-500/50 transition border-purple-500/30">
+                <div class="w-12 h-12 bg-blue-600/20 rounded-lg flex items-center justify-center mb-6 text-blue-400">💡</div>
+                <h3 class="text-xl font-bold mb-4">Ide Konten Otomatis</h3>
+                <p class="text-gray-400 text-sm">Dapatkan 30 hari kalender konten yang dipersonalisasi khusus untuk niche Anda hanya dalam 1 klik.</p>
+            </div>
+            <div class="glass p-8 rounded-3xl hover:border-purple-500/50 transition">
+                <div class="w-12 h-12 bg-pink-600/20 rounded-lg flex items-center justify-center mb-6 text-pink-400">✍️</div>
+                <h3 class="text-xl font-bold mb-4">AI Script Writer</h3>
+                <p class="text-gray-400 text-sm">Skrip video pendek dengan hook yang mematikan untuk meningkatkan retensi penonton.</p>
+            </div>
+        </div>
+    </section>
 
-    <script>
-        // FUNGSI UTAMA: KLIK TOMBOL -> GANTI HALAMAN
-        function jalankanApp() {
-            // Hilangkan landing page
-            document.getElementById('hero-page').style.display = 'none';
-            // Munculkan dashboard
-            const dashboard = document.getElementById('main-dashboard');
-            dashboard.style.display = 'grid';
-            // Fokus ke input pertama
-            document.getElementById('in-ideator').focus();
-        }
-
-        // FUNGSI GANTI TAB SIDEBAR
-        function switchTab(tabId, btn) {
-            document.querySelectorAll('.app-panel').forEach(p => p.classList.remove('active'));
-            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-            
-            document.getElementById('tab-' + tabId).classList.add('active');
-            btn.classList.add('active');
-        }
-
-        // SIMULASI PROSES AI
-        function runIdeator() {
-            const val = document.getElementById('in-ideator').value;
-            const res = document.getElementById('out-ideator');
-            if(!val) return alert("Ketik topiknya dulu!");
-            res.style.display = "block";
-            res.innerHTML = `<strong>Topik: ${val}</strong><br>1. POV: Sesuatu yang jarang orang tahu tentang ${val}.<br>2. Rahasia sukses di niche ${val} untuk pemula.`;
-        }
-
-        function runWriter() {
-            const val = document.getElementById('in-writer').value;
-            const res = document.getElementById('out-writer');
-            if(!val) return alert("Isi ide konten!");
-            res.style.display = "block";
-            res.innerHTML = `<strong>Hook:</strong> "Jangan scroll dulu! Kamu wajib tahu cara ${val} ini..."`;
-        }
-    </script>
-</body>
-</html>
+    <section id="pricing" class="py-20 bg-[#080808]">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-4xl font-bold mb-16">Pilih Paket Kesuksesanmu</h2>
+            <div class="grid md:grid-cols-2 max-w-4
