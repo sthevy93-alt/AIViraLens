@@ -8,6 +8,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
+        .custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(124, 58, 237, 0.3);
+    border-radius: 10px;
+}
         :root { --bg: #030303; --purple: #7C3AED; }
         body { 
             font-family: 'Plus Jakarta Sans', sans-serif; 
@@ -109,31 +119,79 @@
                 <button class="w-full bg-white text-black py-4 rounded-xl font-bold text-sm hover:invert transition">Langganan</button>
             </div>
 
-            <div id="testimonials" class="bento-card">
-                <div class="flex gap-1 text-yellow-500 mb-6"><i data-lucide="star" class="w-4 fill-current"></i><i data-lucide="star" class="w-4 fill-current"></i><i data-lucide="star" class="w-4 fill-current"></i><i data-lucide="star" class="w-4 fill-current"></i><i data-lucide="star" class="w-4 fill-current"></i></div>
-                <p class="text-gray-300 italic mb-8">"ViraLens membantu saya mencapai 100k followers dalam 3 bulan pertama."</p>
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 bg-gradient-to-tr from-purple-500 to-blue-500 rounded-full"></div>
-                    <div>
-                        <p class="text-sm font-bold">Andi Pratama</p>
-                        <p class="text-[10px] text-gray-500">Tech Influencer</p>
-                    </div>
+            <div id="testimonials" class="md:col-span-1 md:row-span-2 bento-card flex flex-col h-full">
+                <div class="flex items-center gap-2 mb-6">
+                <i data-lucide="message-square" class="text-purple-500 w-5 h-5"></i>
+                <h3 class="text-xl font-bold">Review Kreator</h3></div>
+                    <div class="space-y-4 overflow-y-auto pr-2 custom-scrollbar" style="max-height: 600px;">
+        
+            <div class="bg-white/5 p-4 rounded-2xl border border-white/5 hover:border-purple-500/30 transition">
+                <div class="flex gap-1 text-yellow-500 mb-2">
+                <i data-lucide="star" class="w-3 fill-current"></i><i data-lucide="star" class="w-3 fill-current"></i><i data-lucide="star" class="w-3 fill-current"></i><i data-lucide="star" class="w-3 fill-current"></i><i data-lucide="star" class="w-3 fill-current"></i>
                 </div>
+            <p class="text-[11px] text-gray-400 italic">"Sebagai pemilik UMKM, saya tidak punya waktu riset. Alat ini memberikan ide konten yang langsung bisa saya pakai dan hasilnya luar biasa!"</p>
+            <div class="flex items-center gap-2 mt-3">
+                <div class="w-6 h-6 rounded-full bg-blue-500/30 flex items-center justify-center text-[10px] font-bold">BS</div>
+                <span class="text-[10px] font-bold text-white">Budi Santoso — Owner Kopi Nusantara</span>
             </div>
-
-            <div id="blog" class="md:col-span-2 bento-card flex flex-col md:flex-row gap-8 items-center">
-                <div class="flex-1">
-                    <h3 class="text-2xl font-bold mb-4">Tips & Resources</h3>
-                    <p class="text-gray-400 text-sm mb-6">Pelajari strategi terbaru dari para ahli konten global secara gratis di blog kami.</p>
-                    <button class="text-purple-400 font-bold flex items-center gap-2 hover:gap-4 transition-all">Baca Artikel <i data-lucide="move-right"></i></button>
-                </div>
-                <div class="flex-1 w-full grid grid-cols-2 gap-3">
-                    <div class="aspect-square bg-white/5 rounded-2xl border border-white/5 overflow-hidden p-4 flex items-center justify-center text-center text-[10px]">Strategi TikTok 2026</div>
-                    <div class="aspect-square bg-white/5 rounded-2xl border border-white/5 overflow-hidden p-4 flex items-center justify-center text-center text-[10px]">Optimasi Algoritma</div>
-                </div>
-            </div>
-
         </div>
+
+            <div class="bg-white/5 p-4 rounded-2xl border border-white/5 hover:border-purple-500/30 transition">
+            <div class="flex gap-1 text-yellow-500 mb-2">
+                <i data-lucide="star" class="w-3 fill-current"></i><i data-lucide="star" class="w-3 fill-current"></i><i data-lucide="star" class="w-3 fill-current"></i><i data-lucide="star" class="w-3 fill-current"></i><i data-lucide="star" class="w-3 fill-current"></i>
+            </div>
+            <p class="text-[11px] text-gray-400 italic">"Sebagai pemilik UMKM, saya tidak punya waktu riset. Alat ini memberikan ide konten yang langsung bisa saya pakai dan hasilnya luar biasa!"</p>
+            <div class="flex items-center gap-2 mt-3">
+                <div class="w-6 h-6 rounded-full bg-blue-500/30 flex items-center justify-center text-[10px] font-bold">BS</div>
+                <span class="text-[10px] font-bold text-white">Budi Santoso — Owner Kopi Nusantara</span>
+            </div>
+        </div>
+
+        <div class="bg-white/5 p-4 rounded-2xl border border-white/5 hover:border-purple-500/30 transition">
+            <div class="flex gap-1 text-yellow-500 mb-2">
+                <i data-lucide="star" class="w-3 fill-current"></i><i data-lucide="star" class="w-3 fill-current"></i><i data-lucide="star" class="w-3 fill-current"></i><i data-lucide="star" class="w-3 fill-current"></i><i data-lucide="star" class="w-3 fill-current"></i>
+            </div>
+            <p class="text-[11px] text-gray-400 italic">"Platform ini menghemat waktu saya 10 jam per minggu. Ide kontennya selalu fresh dan sangat relevan dengan audiens saya."</p>
+            <div class="flex items-center gap-2 mt-3">
+                <div class="w-6 h-6 rounded-full bg-pink-500/30 flex items-center justify-center text-[10px] font-bold">RK</div>
+                <span class="text-[10px] font-bold text-white">Rina Kusuma — Affiliate Marketer</span>
+            </div>
+        </div>
+
+        <div class="bg-white/5 p-4 rounded-2xl border border-white/5 hover:border-purple-500/30 transition">
+            <div class="flex gap-1 text-yellow-500 mb-2">
+                <i data-lucide="star" class="w-3 fill-current"></i><i data-lucide="star" class="w-3 fill-current"></i><i data-lucide="star" class="w-3 fill-current"></i><i data-lucide="star" class="w-3 fill-current"></i><i data-lucide="star" class="w-3 fill-current"></i>
+            </div>
+            <p class="text-[11px] text-gray-400 italic">"Analytics dashboard-nya sangat powerful. Saya bisa track performa secara real-time dan adjust strategi dengan cepat. ROI meningkat drastis!"</p>
+            <div class="flex items-center gap-2 mt-3">
+                <div class="w-6 h-6 rounded-full bg-green-500/30 flex items-center justify-center text-[10px] font-bold">AF</div>
+                <span class="text-[10px] font-bold text-white">Ahmad Fauzi — Social Media Manager</span>
+            </div>
+        </div>
+
+        <div class="bg-white/5 p-4 rounded-2xl border border-white/5 hover:border-purple-500/30 transition">
+            <div class="flex gap-1 text-yellow-500 mb-2">
+                <i data-lucide="star" class="w-3 fill-current"></i><i data-lucide="star" class="w-3 fill-current"></i><i data-lucide="star" class="w-3 fill-current"></i><i data-lucide="star" class="w-3 fill-current"></i><i data-lucide="star" class="w-3 fill-current"></i>
+            </div>
+            <p class="text-[11px] text-gray-400 italic">"Fitur optimasi hook-nya gila banget. Video yang tadinya sepi, sekarang rutin masuk FYP setelah pakai saran dari ViraLens."</p>
+            <div class="flex items-center gap-2 mt-3">
+                <div class="w-6 h-6 rounded-full bg-yellow-500/30 flex items-center justify-center text-[10px] font-bold">DN</div>
+                <span class="text-[10px] font-bold text-white">Dinda Nastiti — Lifestyle Blogger</span>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="mt-auto pt-6 border-t border-white/5 flex justify-between items-center">
+        <div>
+            <p class="text-2xl font-bold">4.9/5</p>
+            <p class="text-[8px] text-gray-500 uppercase tracking-widest">Kepuasan Pengguna</p>
+        </div>
+        <div class="bg-purple-600/20 text-purple-400 text-[10px] px-3 py-1 rounded-full font-bold">
+            10k+ Member
+        </div>
+    </div>
+</div>
     </section>
 
     <footer class="py-20 px-6 border-t border-white/5 text-center">
