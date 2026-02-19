@@ -72,124 +72,221 @@
 </div>
 
 <script>
-const databaseIde = {
+
+// ===============================
+// ViraLens AI PRO DATABASE
+// ===============================
+
+const viraLensDB = {
+
+content_ideas: {
+    "viral": [
+        "POV relatable yang sering dialami banyak orang.",
+        "3 kesalahan umum yang sering dilakukan pemula.",
+        "Hal yang tidak diberitahu orang sebelum mulai X.",
+        "Eksperimen: mencoba tren viral selama 7 hari.",
+        "Perbandingan before vs after yang ekstrem."
+    ],
+
+    "creator": [
+        "Ide konten tanpa tampil muka untuk pemula.",
+        "Hook 3 detik pertama agar penonton tidak scroll.",
+        "Cara konsisten upload tanpa burnout.",
+        "Jenis konten yang cepat naik follower.",
+        "Kesalahan creator saat mulai bikin konten."
+    ],
+
     "affiliate": [
-        "Cara jualan affiliate tanpa modal untuk pemula dari nol.",
-        "Produk affiliate paling laku bulan ini (riset marketplace).",
-        "Script video affiliate 30 detik yang langsung closing."
+        "Script review jujur produk agar dipercaya penonton.",
+        "Format video affiliate yang cepat closing.",
+        "Cara bikin video jualan tanpa terlihat jualan.",
+        "Produk viral yang mudah dipromosikan.",
+        "Strategi konten affiliate 30 hari."
     ],
-    "konten": [
-        "Ide konten tanpa tampil muka yang tetap bisa viral.",
-        "Formula konten FYP: hook, value, CTA.",
-        "Kesalahan creator pemula yang bikin konten sepi view."
-    ],
-    "jualan": [
-        "Cara dapat 10 pembeli pertama tanpa iklan.",
-        "Strategi jualan di marketplace agar cepat naik.",
-        "Psikologi harga: kenapa Rp49.900 lebih laku dari Rp50.000."
-    ],
+
     "bisnis": [
-        "Ide bisnis rumahan modal kecil tapi cepat balik modal.",
-        "Bisnis digital paling laku tahun ini.",
-        "Cara mulai bisnis dari nol tanpa pengalaman."
+        "Ide bisnis digital yang bisa dijalankan sendiri.",
+        "Cara validasi ide bisnis sebelum dijalankan.",
+        "Sistem jualan sederhana untuk pemula.",
+        "Kesalahan saat mulai bisnis online.",
+        "Strategi dapat pembeli pertama."
     ],
-    "produk digital": [
-        "Produk digital paling gampang dijual untuk pemula.",
-        "Cara bikin e-book yang laku di marketplace.",
-        "Template digital yang selalu dicari orang."
-    ],
-    "ai": [
-        "Cara pakai AI untuk bikin konten 30 hari sekali klik.",
-        "Prompt AI untuk ide konten viral.",
-        "Tools AI gratis yang bantu kerja lebih cepat."
-    ],
-    "uang": [
-        "Cara dapat uang dari internet untuk pemula.",
-        "Skill online yang cepat menghasilkan.",
-        "Website penghasil uang yang legit."
-    ],
-    "resep": [
-        "Ide jualan makanan simple tapi laris.",
-        "Resep minuman viral modal kecil.",
-        "Menu diet murah tapi efektif."
-    ],
-    "masak": [
-        "Ide jualan makanan simple tapi laris.",
-        "Resep minuman viral modal kecil.",
-        "Menu diet murah tapi efektif."
-    ],
-    "skincare": [
-        "Urutan skincare basic untuk pemula.",
-        "Kesalahan skincare yang bikin jerawat makin parah.",
-        "Produk skincare murah tapi efektif."
-    ],
-    "fashion": [
-        "Outfit simple tapi kelihatan mahal.",
-        "Kesalahan fashion yang bikin terlihat pendek.",
-        "Mix and match baju basic."
-    ],
-    "gadget": [
-        "Aplikasi wajib di HP yang bikin hidup lebih produktif.",
-        "Setting HP agar tidak lemot.",
-        "Gadget murah tapi worth it."
-    ],
-    "produktif": [
-        "Cara disiplin tanpa motivasi.",
-        "Habit kecil yang mengubah hidup.",
-        "Sistem kerja fokus 1 jam tanpa distraksi."
-    ],
-    "kesehatan": [
-        "Cara turunkan berat badan tanpa olahraga berat.",
-        "Kebiasaan kecil yang bikin badan cepat capek.",
-        "Tips tidur cepat dan nyenyak."
-    ],
-    "website": [
-        "Cara bikin website gratis pakai GitHub.",
-        "Tools gratis untuk bikin website profesional.",
-        "Cara dapat trafik ke website baru."
-    ],
-    "seo": [
-        "Cara riset keyword untuk pemula.",
-        "Judul artikel yang pasti diklik orang.",
-        "Strategi SEO tanpa backlink."
-    ],
-    "umum": [
-        "3 skill yang wajib dipelajari tahun ini.",
-        "Hal kecil yang bikin hidup lebih terarah.",
-        "Cara mulai berubah tanpa harus nunggu motivasi."
+
+    "lifestyle": [
+        "Rutinitas pagi produktif.",
+        "Kebiasaan kecil yang mengubah hidup.",
+        "A day in my life versi realistis.",
+        "Tips mengatur waktu kerja & istirahat.",
+        "Self improvement untuk pemula."
     ]
+},
+
+// ===============================
+// SCRIPT WRITER ENGINE
+// ===============================
+
+script_templates: {
+
+    "review_produk": [
+        "Hook: 'Aku nyesel baru coba ini sekarang…'",
+        "Masalah yang dialami pengguna.",
+        "Solusi dari produk.",
+        "Demo singkat penggunaan.",
+        "Call to action halus."
+    ],
+
+    "jualan_soft": [
+        "Hook curiosity.",
+        "Story pribadi/relatable.",
+        "Insight atau value.",
+        "Reveal produk.",
+        "CTA lembut."
+    ],
+
+    "edukasi": [
+        "Masalah umum.",
+        "Fakta mengejutkan.",
+        "Penjelasan singkat.",
+        "Tips praktis.",
+        "Kesimpulan kuat."
+    ],
+
+    "storytelling": [
+        "Awal konflik.",
+        "Perjuangan.",
+        "Turning point.",
+        "Pelajaran.",
+        "Penutup emosional."
+    ]
+},
+
+// ===============================
+// VIRTUAL ASSISTANT PROMPTS
+// ===============================
+
+ai_prompts: {
+
+    "ide_konten": [
+        "Buatkan 10 ide konten dari topik ini.",
+        "Buatkan konten yang cocok untuk pemula.",
+        "Cari sudut pandang unik dari topik ini.",
+        "Buatkan ide konten yang relate dengan Gen Z.",
+        "Buatkan ide konten storytelling."
+    ],
+
+    "script": [
+        "Buat script video 30 detik.",
+        "Buat script storytelling emosional.",
+        "Buat script edukasi cepat.",
+        "Buat script jualan soft selling.",
+        "Buat script konten viral."
+    ],
+
+    "riset": [
+        "Apa yang sedang tren dari topik ini?",
+        "Apa masalah terbesar audiens niche ini?",
+        "Apa konten yang paling banyak dicari?",
+        "Apa keyword populer dari niche ini?",
+        "Apa peluang konten yang belum banyak dibuat?"
+    ]
+},
+
+// ===============================
+// CONTENT CALENDAR IDEAS
+// ===============================
+
+content_calendar: {
+
+    "mingguan": [
+        "Senin: edukasi niche.",
+        "Selasa: tips cepat.",
+        "Rabu: storytelling.",
+        "Kamis: konten viral/tren.",
+        "Jumat: behind the scene.",
+        "Sabtu: hiburan ringan.",
+        "Minggu: refleksi / opini."
+    ],
+
+    "bulanan": [
+        "Minggu 1: awareness.",
+        "Minggu 2: edukasi.",
+        "Minggu 3: engagement.",
+        "Minggu 4: selling."
+    ]
+},
+
+// ===============================
+// TREND TRIGGER
+// ===============================
+
+trend_engine: {
+
+    "format_tren": [
+        "Before - After.",
+        "POV.",
+        "Day in my life.",
+        "Tutorial cepat.",
+        "List 3 hal.",
+        "Eksperimen.",
+        "Story pribadi."
+    ],
+
+    "hook_tren": [
+        "Tidak ada yang bahas ini...",
+        "Aku baru sadar ternyata...",
+        "Semua orang salah soal ini.",
+        "Kalau kamu creator, wajib tahu ini.",
+        "Ini alasan kontenmu sepi."
+    ]
+}
+
 };
 
+
+// ===============================
+// ENGINE FUNCTION
+// ===============================
+
 function cariIde() {
+
     const input = document.getElementById('topicInput').value.toLowerCase();
     const resBox = document.getElementById('resultBox');
-    
-    if(!input.trim()) return alert("Ketik topiknya dulu!");
+
+    if(!input) return alert("Ketik topiknya dulu!");
 
     resBox.style.display = "block";
-    resBox.innerHTML = "<em>🔎 Mencari di database...</em>";
+    resBox.innerHTML = "<em>🔎 AI sedang menganalisa ide...</em>";
 
     setTimeout(() => {
-        let temukan = null;
-        // Mencari apakah ada kata kunci di dalam input
-        for (let kunci in databaseIde) {
-            if (input.includes(kunci)) {
-                temukan = databaseIde[kunci];
-                break;
-            }
+
+        let hasil = [];
+
+        // random engine gabung semua database
+        const semuaKategori = Object.values(viraLensDB.content_ideas).flat();
+        const semuaHook = viraLensDB.trend_engine.hook_tren;
+        const semuaFormat = viraLensDB.trend_engine.format_tren;
+
+        for(let i=0;i<3;i++){
+            const ide = semuaKategori[Math.floor(Math.random()*semuaKategori.length)];
+            const hook = semuaHook[Math.floor(Math.random()*semuaHook.length)];
+            const format = semuaFormat[Math.floor(Math.random()*semuaFormat.length)];
+
+            hasil.push(`${hook} → ${format} → ${ide}`);
         }
 
-        const ideFinal = temukan || databaseIde["umum"];
-        let htmlHasil = "<strong>3 Ide Viral Untukmu:</strong><ul>";
-        ideFinal.forEach(item => {
+        let htmlHasil = "<strong>🔥 Ide Viral PRO:</strong><ul>";
+        hasil.forEach(item => {
             htmlHasil += `<li>${item}</li>`;
         });
         htmlHasil += "</ul>";
-        
+
         resBox.innerHTML = htmlHasil;
-    }, 600);
+
+    }, 700);
 }
+
 </script>
 
 </body>
 </html>
+
