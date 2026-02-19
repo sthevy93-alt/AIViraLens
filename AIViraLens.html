@@ -49,29 +49,61 @@
 </div>
 
 <script>
-    // FUNGSI PINDAH MENU
-    function buka(evt, namaMenu) {
-        var i, section, navbtn;
-        section = document.getElementsByClassName("section");
-        for (i = 0; i < section.length; i++) { section[i].style.display = "none"; }
-        navbtn = document.getElementsByClassName("nav-btn");
-        for (i = 0; i < navbtn.length; i++) { navbtn[i].className = navbtn[i].className.replace(" active", ""); }
-        document.getElementById(namaMenu).style.display = "block";
-        evt.currentTarget.className += " active";
+    // AIzaSyButvGuiHBKltyUgBxWts2bBDXLGC_fsic
+    const GEMINI_API_KEY = "PASTE_API_KEY_KAMU_DI_SINI";
+
+    async function panggilGemini(promptTeks) {
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
+        
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                contents: [{ parts: [{ text: promptTeks }] }]
+            })
+        });
+
+        const data = await response.json();
+        return data.candidates[0].content.parts[0].text;
     }
 
-    // FUNGSI PROSES
-    function prosesIde() {
-        var inp = document.getElementById('inpIde').value;
-        var h = document.getElementById('hasil');
-        if(!inp) { alert("Isi dulu niche-nya!"); return; }
-        h.style.display = "block";
-        h.innerHTML = "Memproses ide untuk " + inp + "...";
-        setTimeout(() => {
-            h.innerHTML = "<strong>Ide Viral:</strong><br>1. Cara rahasia master " + inp + "<br>2. Review jujur " + inp + " yang lagi hits.";
-        }, 1000);
+    // 1. FUNGSI IDEATOR ENGINE
+    async function runIdeator() {
+        const niche = document.getElementById('inputIde').value;
+        const resBox = document.getElementById('resIde');
+        if(!niche) return alert("Masukkan niche kamu dulu!");
+
+        resBox.style.display = "block";
+        resBox.innerHTML = "<em>✨ Gemini AI sedang mencari ide viral...</em>";
+
+        const prompt = `Berikan 3 ide konten TikTok/Reels yang viral untuk niche: ${niche}. Fokus pada hook yang memancing rasa penasaran.`;
+        const hasilAI = await panggilGemini(prompt);
+        resBox.innerHTML = `<strong>Ide Viral:</strong><br>${hasilAI.replace(/\n/g, '<br>')}`;
+    }
+
+    // 2. FUNGSI SCRIPT WRITER
+    async function runScript() {
+        const topik = document.getElementById('inputScript').value;
+        const resBox = document.getElementById('resScript');
+        if(!topik) return alert("Masukkan topik video dulu!");
+
+        resBox.style.display = "block";
+        resBox.innerHTML = "<em>📝 Sedang menyusun naskah video...</em>";
+
+        const prompt = `Buatkan script video pendek (durasi 30 detik) tentang: ${topik}. Harus ada Hook, Story, dan Call to Action. Gunakan bahasa gaul yang santai.`;
+        const hasilAI = await panggilGemini(prompt);
+        resBox.innerHTML = `<strong>Naskah AI:</strong><br>${hasilAI.replace(/\n/g, '<br>')}`;
+    }
+
+    // FUNGSI PINDAH MENU
+    function showMenu(menuId, element) {
+        document.querySelectorAll('.menu-section').forEach(s => s.classList.remove('active'));
+        document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+        document.getElementById(menuId).classList.add('active');
+        element.classList.add('active');
     }
 </script>
 
 </body>
 </html>
+
