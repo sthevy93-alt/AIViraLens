@@ -3,179 +3,154 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ViraLens AI - PRO Database</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <title>ViraLens AI - Pro Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
     <style>
         :root { --accent: #00d4ff; --bg: #000; --card: #0a0a0a; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: var(--bg); color: #fff; font-family: 'Inter', sans-serif; display: flex; height: 100vh; }
+        body { background: var(--bg); color: #fff; font-family: 'Inter', sans-serif; display: flex; height: 100vh; overflow: hidden; }
         
-        .sidebar { width: 250px; background: #050505; border-right: 1px solid #111; padding: 30px 20px; }
-        .sidebar h2 { color: var(--accent); margin-bottom: 30px; font-size: 1.5rem; font-weight: 800; }
-        .nav-btn { width: 100%; padding: 12px; background: none; border: none; color: #888; text-align: left; cursor: pointer; border-radius: 8px; margin-bottom: 10px; font-weight: bold; transition: 0.3s; }
-        .nav-btn.active { background: rgba(0, 212, 255, 0.1); color: var(--accent); }
-        .nav-btn:hover { color: #fff; background: #111; }
+        /* Sidebar */
+        .sidebar { width: 260px; background: #050505; border-right: 1px solid #111; padding: 30px 20px; display: flex; flex-direction: column; }
+        .sidebar h2 { color: var(--accent); margin-bottom: 30px; font-size: 1.5rem; font-weight: 800; text-align: center; }
+        .nav-btn { width: 100%; padding: 14px; background: none; border: none; color: #888; text-align: left; cursor: pointer; border-radius: 10px; margin-bottom: 8px; font-weight: bold; transition: 0.3s; font-size: 0.9rem; }
+        .nav-btn.active { background: rgba(0, 212, 255, 0.1); color: var(--accent); border: 1px solid rgba(0, 212, 255, 0.2); }
+        .nav-btn:hover:not(.active) { background: #111; color: #fff; }
 
-        .main { flex: 1; padding: 50px; overflow-y: auto; }
-        .card { background: var(--card); border: 1px solid #1a1a1a; padding: 30px; border-radius: 20px; max-width: 700px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        h1 { margin-bottom: 10px; font-size: 2rem; font-weight: 800; }
-        p.desc { color: #888; margin-bottom: 30px; }
+        /* Main Content */
+        .main-container { flex: 1; padding: 40px; overflow-y: auto; }
+        .content-section { display: none; animation: fadeIn 0.4s ease; }
+        .content-section.active { display: block; }
+        
+        h1 { font-size: 2.2rem; font-weight: 800; margin-bottom: 10px; }
+        p.desc { color: #888; margin-bottom: 30px; font-size: 1rem; }
 
-        textarea { 
-            width: 100%; height: 100px; background: #000; color: var(--accent); 
-            border: 1px solid #222; border-radius: 12px; padding: 15px; 
-            font-size: 1rem; margin-bottom: 20px; outline: none; resize: none;
-            transition: 0.3s;
-        }
+        .card { background: var(--card); border: 1px solid #1a1a1a; padding: 30px; border-radius: 20px; max-width: 800px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        textarea { width: 100%; height: 100px; background: #000; color: var(--accent); border: 1px solid #222; border-radius: 12px; padding: 15px; font-size: 1rem; margin-bottom: 20px; outline: none; resize: none; transition: 0.3s; }
         textarea:focus { border-color: var(--accent); }
 
-        .btn-action { 
-            background: var(--accent); color: #000; border: none; padding: 15px; 
-            border-radius: 10px; font-weight: 800; cursor: pointer; width: 100%; 
-            transition: 0.3s;
-        }
-        .btn-action:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0, 212, 255, 0.3); }
+        .btn-action { background: var(--accent); color: #000; border: none; padding: 16px; border-radius: 12px; font-weight: 800; cursor: pointer; width: 100%; transition: 0.3s; font-size: 1rem; }
+        .btn-action:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(0, 212, 255, 0.4); }
 
-        #resultBox { 
-            margin-top: 30px; padding: 20px; background: #050505; 
-            border-left: 4px solid var(--accent); border-radius: 8px; 
-            display: none; line-height: 1.8; animation: slideIn 0.4s ease;
-        }
-        ul { margin-left: 20px; margin-top: 10px; }
-        li { margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid #111; }
+        /* Result Display */
+        .result-box { margin-top: 25px; padding: 20px; background: #050505; border-left: 4px solid var(--accent); border-radius: 12px; line-height: 1.7; }
+        .res-item { margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid #111; }
+        .res-label { color: var(--accent); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; display: block; margin-bottom: 5px; }
 
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
-<div class="sidebar">
-    <h2>ViraLens AI</h2>
-    <button class="nav-btn active">✨ Ideator Engine</button>
-    <button class="nav-btn" onclick="alert('Fitur ini akan segera hadir!')">📝 Script Writer</button>
-</div>
-
-<div class="main">
-    <h1>Ideator Engine</h1>
-    <p class="desc">PRO Database - Formula Hook + Format + Ide</p>
-    <div class="card">
-        <textarea id="topicInput" placeholder="Ketik topik (contoh: affiliate, konten, bisnis)..."></textarea>
-        <button class="btn-action" onclick="cariIde()">🚀 Temukan Ide Viral</button>
-        <div id="resultBox"></div>
+    <div class="sidebar">
+        <h2>ViraLens AI</h2>
+        <button class="nav-btn active" onclick="showSection('ideator', this)">✨ Ideator Engine</button>
+        <button class="nav-btn" onclick="showSection('writer', this)">📝 Script Writer</button>
+        <button class="nav-btn" onclick="showSection('visual', this)">🎨 Visual Assistant</button>
+        <button class="nav-btn" onclick="showSection('calendar', this)">📅 Content Calendar</button>
     </div>
-</div>
+
+    <div class="main-container">
+        
+        <div id="ideator" class="content-section active">
+            <h1>Ideator Engine</h1>
+            <p class="desc">Temukan tren viral dan hasilkan ribuan ide konten unik sesuai niche Anda.</p>
+            <div class="card">
+                <textarea id="in-ideator" placeholder="Contoh: Affiliate, Masak, Gadget..."></textarea>
+                <button class="btn-action" onclick="runIdeator()">🚀 Cari Ide Viral</button>
+                <div id="out-ideator" class="result-box" style="display:none"></div>
+            </div>
+        </div>
+
+        <div id="writer" class="content-section">
+            <h1>Script Writer</h1>
+            <p class="desc">Tinggalkan blokade kreatif. AI kami menulis skrip yang memicu retensi tinggi.</p>
+            <div class="card">
+                <textarea id="in-writer" placeholder="Contoh: Tutorial masak mie instan viral..."></textarea>
+                <button class="btn-action" onclick="runWriter()">✍️ Buat Script Video</button>
+                <div id="out-writer" class="result-box" style="display:none"></div>
+            </div>
+        </div>
+
+        <div id="visual" class="content-section">
+            <h1>Visual Assistant</h1>
+            <p class="desc">Dapatkan saran visual, hook visual, dan aset grafis instan untuk konten Anda.</p>
+            <div class="card">
+                <textarea id="in-visual" placeholder="Sebutkan topik video Anda..."></textarea>
+                <button class="btn-action" onclick="runVisual()">🎨 Cari Saran Visual</button>
+                <div id="out-visual" class="result-box" style="display:none"></div>
+            </div>
+        </div>
+
+        <div id="calendar" class="content-section">
+            <h1>Content Calendar</h1>
+            <p class="desc">Kelola jadwal posting secara otomatis untuk seminggu ke depan.</p>
+            <div class="card">
+                <textarea id="in-calendar" placeholder="Topik utama konten minggu ini..."></textarea>
+                <button class="btn-action" onclick="runCalendar()">📅 Buat Jadwal 7 Hari</button>
+                <div id="out-calendar" class="result-box" style="display:none"></div>
+            </div>
+        </div>
+
+    </div>
 
 <script>
-// ===============================
-// ViraLens AI PRO DATABASE
-// ===============================
-const viraLensDB = {
-    content_ideas: {
-        "viral": [
-            "POV relatable yang sering dialami banyak orang.",
-            "3 kesalahan umum yang sering dilakukan pemula.",
-            "Hal yang tidak diberitahu orang sebelum mulai X.",
-            "Eksperimen: mencoba tren viral selama 7 hari.",
-            "Perbandingan before vs after yang ekstrem."
-        ],
-        "creator": [
-            "Ide konten tanpa tampil muka untuk pemula.",
-            "Hook 3 detik pertama agar penonton tidak scroll.",
-            "Cara konsisten upload tanpa burnout.",
-            "Jenis konten yang cepat naik follower.",
-            "Kesalahan creator saat mulai bikin konten."
-        ],
-        "affiliate": [
-            "Script review jujur produk agar dipercaya penonton.",
-            "Format video affiliate yang cepat closing.",
-            "Cara bikin video jualan tanpa terlihat jualan.",
-            "Produk viral yang mudah dipromosikan.",
-            "Strategi konten affiliate 30 hari."
-        ],
-        "bisnis": [
-            "Ide bisnis digital yang bisa dijalankan sendiri.",
-            "Cara validasi ide bisnis sebelum dijalankan.",
-            "Sistem jualan sederhana untuk pemula.",
-            "Kesalahan saat mulai bisnis online.",
-            "Strategi dapat pembeli pertama."
-        ],
-        "lifestyle": [
-            "Rutinitas pagi produktif.",
-            "Kebiasaan kecil yang mengubah hidup.",
-            "A day in my life versi realistis.",
-            "Tips mengatur waktu kerja & istirahat.",
-            "Self improvement untuk pemula."
-        ]
-    },
-    trend_engine: {
-        "format_tren": [
-            "Before - After",
-            "POV Style",
-            "Day in my life",
-            "Tutorial cepat",
-            "List 3 hal",
-            "Eksperimen",
-            "Story pribadi"
-        ],
-        "hook_tren": [
-            "Tidak ada yang bahas ini...",
-            "Aku baru sadar ternyata...",
-            "Semua orang salah soal ini.",
-            "Kalau kamu creator, wajib tahu ini.",
-            "Ini alasan kontenmu sepi."
-        ]
+    // FUNGSI GANTI MENU
+    function showSection(id, btn) {
+        document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        btn.classList.add('active');
     }
-};
 
-// ===============================
-// ENGINE FUNCTION
-// ===============================
-function cariIde() {
-    const input = document.getElementById('topicInput').value.toLowerCase();
-    const resBox = document.getElementById('resultBox');
+    // LOGIKA 1: IDEATOR
+    function runIdeator() {
+        const val = document.getElementById('in-ideator').value;
+        const out = document.getElementById('out-ideator');
+        if(!val) return alert("Isi topik dulu!");
+        out.style.display = "block";
+        out.innerHTML = `<strong>Topik: ${val}</strong><br>1. POV: Sesuatu yang jarang orang tahu tentang ${val}.<br>2. 3 Kesalahan fatal saat mulai ${val}.<br>3. Eksperimen 7 hari fokus di ${val}.`;
+    }
 
-    if(!input.trim()) return alert("Ketik topiknya dulu!");
+    // LOGIKA 2: SCRIPT WRITER
+    function runWriter() {
+        const val = document.getElementById('in-writer').value;
+        const out = document.getElementById('out-writer');
+        if(!val) return alert("Isi ide script dulu!");
+        out.style.display = "block";
+        out.innerHTML = `
+            <div class="res-item"><span class="res-label">Hook</span>"Berhenti scroll! Kamu wajib tahu cara ${val} ini..."</div>
+            <div class="res-item"><span class="res-label">Body</span>Jelaskan step-by-step tentang ${val} secara singkat dan padat.</div>
+            <div class="res-item"><span class="res-label">CTA</span>"Klik link di bio atau follow buat tips lainnya!"</div>
+        `;
+    }
 
-    resBox.style.display = "block";
-    resBox.innerHTML = "<em>🔎 AI sedang menganalisa ide...</em>";
+    // LOGIKA 3: VISUAL ASSISTANT
+    function runVisual() {
+        const val = document.getElementById('in-visual').value;
+        const out = document.getElementById('out-visual');
+        if(!val) return alert("Tulis topik videomu!");
+        out.style.display = "block";
+        out.innerHTML = `
+            <div class="res-item"><span class="res-label">Visual Hook</span>Gunakan teks besar warna kuning di awal video.</div>
+            <div class="res-item"><span class="res-label">Background</span>Pastikan pencahayaan terang dari depan (Ring Light).</div>
+            <div class="res-item"><span class="res-label">Editing</span>Pakai transisi 'Cut-on-action' setiap 3 detik.</div>
+        `;
+    }
 
-    setTimeout(() => {
-        let hasil = [];
-        
-        // Logika Pintar: Cek kategori yang sesuai, kalau tidak ada pakai 'viral'
-        let kategoriKunci = "viral"; 
-        for (let key in viraLensDB.content_ideas) {
-            if (input.includes(key)) {
-                kategoriKunci = key;
-                break;
-            }
-        }
-
-        const poolIde = viraLensDB.content_ideas[kategoriKunci];
-        const poolHook = viraLensDB.trend_engine.hook_tren;
-        const poolFormat = viraLensDB.trend_engine.format_tren;
-
-        // Ambil 3 kombinasi unik
-        for(let i=0; i<3; i++) {
-            const ide = poolIde[Math.floor(Math.random() * poolIde.length)];
-            const hook = poolHook[Math.floor(Math.random() * poolHook.length)];
-            const format = poolFormat[Math.floor(Math.random() * poolFormat.length)];
-
-            hasil.push(`<strong>${hook}</strong><br><small>Format: ${format}</small><br>➔ ${ide}`);
-        }
-
-        let htmlHasil = "<strong>🔥 Ide Viral PRO untuk '" + input + "':</strong><ul>";
-        hasil.forEach(item => {
-            htmlHasil += `<li>${item}</li>`;
-        });
-        htmlHasil += "</ul>";
-
-        resBox.innerHTML = htmlHasil;
-    }, 700);
-}
+    // LOGIKA 4: CALENDAR
+    function runCalendar() {
+        const val = document.getElementById('in-calendar').value;
+        const out = document.getElementById('out-calendar');
+        if(!val) return alert("Tulis niche kontenmu!");
+        out.style.display = "block";
+        out.innerHTML = `
+            <div class="res-item"><b>Senin:</b> Edukasi dasar ${val}.</div>
+            <div class="res-item"><b>Rabu:</b> Tutorial / Tips cepat ${val}.</div>
+            <div class="res-item"><b>Jumat:</b> Mitos vs Fakta seputar ${val}.</div>
+            <div class="res-item"><b>Minggu:</b> Q&A atau Interaksi dengan audiens.</div>
+        `;
+    }
 </script>
 
 </body>
