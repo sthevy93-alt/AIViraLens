@@ -3,180 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - ViraLens AI</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <title>Dashboard - ViraLens</title>
     <style>
-        :root {
-            --bg-dark: #000000;
-            --sidebar-bg: #050505;
-            --accent: #00d4ff;
-            --card-bg: #0a0a0a;
-            --text-gray: #888;
+        body { background: #000; color: #fff; font-family: sans-serif; display: flex; height: 100vh; margin: 0; }
+        .sidebar { width: 250px; background: #050505; border-right: 1px solid #111; padding: 20px; }
+        .main { flex: 1; padding: 40px; }
+        .nav-btn { 
+            display: block; width: 100%; padding: 15px; margin-bottom: 10px;
+            background: none; border: none; color: #888; text-align: left;
+            cursor: pointer; font-size: 1rem; border-radius: 8px;
         }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            background-color: var(--bg-dark);
-            color: #fff;
-            font-family: 'Inter', sans-serif;
-            display: flex;
-            height: 100vh;
-            overflow: hidden;
-        }
-
-        /* Sidebar */
-        .sidebar {
-            width: 280px;
-            background: var(--sidebar-bg);
-            border-right: 1px solid #111;
-            padding: 30px 20px;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .sidebar h2 { color: var(--accent); font-weight: 800; margin-bottom: 40px; }
-
-        .nav-link {
-            padding: 15px;
-            color: var(--text-gray);
-            text-decoration: none;
-            border-radius: 12px;
-            margin-bottom: 8px;
-            transition: 0.3s;
-            font-weight: 600;
-            cursor: pointer;
-            border: none;
-            background: transparent;
-            text-align: left;
-            width: 100%;
-            display: block;
-        }
-
-        .nav-link.active {
-            background: rgba(0, 212, 255, 0.1);
-            color: var(--accent);
-            border-left: 4px solid var(--accent);
-        }
-
-        /* Main Content Area */
-        .main-content { flex: 1; padding: 60px; overflow-y: auto; }
-
-        .menu-section { display: none; } /* Sembunyikan semua menu dulu */
-        .menu-section.active { display: block; } /* Munculkan yang aktif */
-
-        .card {
-            background: var(--card-bg);
-            border: 1px solid #1a1a1a;
-            border-radius: 24px;
-            padding: 35px;
-            max-width: 800px;
-        }
-
-        textarea {
-            width: 100%; height: 120px; background: #000; border: 1px solid #222;
-            border-radius: 16px; padding: 20px; color: #fff; font-size: 1rem; margin-bottom: 20px;
-        }
-
-        .btn-action {
-            background: var(--accent); color: #000; border: none; padding: 15px 30px;
-            border-radius: 12px; font-weight: 800; cursor: pointer; width: 100%;
-        }
-
-        .result-box {
-            margin-top: 30px; padding: 20px; background: #050505; 
-            border-radius: 16px; border: 1px dashed #333; display: none;
-        }
+        .nav-btn.active { background: rgba(0, 212, 255, 0.1); color: #00d4ff; font-weight: bold; }
+        .section { display: none; }
+        .section.active { display: block; }
+        .box { background: #0a0a0a; border: 1px solid #222; padding: 20px; border-radius: 15px; }
+        textarea { width: 100%; background: #000; color: #00d4ff; border: 1px solid #333; padding: 15px; border-radius: 10px; margin-bottom: 10px; box-sizing: border-box; }
+        button.utama { background: #00d4ff; color: #000; border: none; padding: 12px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; width: 100%; }
+        #hasil { margin-top: 20px; color: #00d4ff; padding: 15px; border-left: 2px solid #00d4ff; background: #050505; display: none; }
     </style>
 </head>
 <body>
 
-    <div class="sidebar">
-        <h2>ViraLens AI</h2>
-        <button class="nav-link active" onclick="showMenu('ideator', this)">✨ Ideator Engine</button>
-        <button class="nav-link" onclick="showMenu('script', this)">📝 Script Writer</button>
-        <button class="nav-link" onclick="showMenu('visual', this)">🎨 Visual Assistant</button>
-        <button class="nav-link" onclick="showMenu('calendar', this)">📅 Content Calendar</button>
+<div class="sidebar">
+    <h2 style="color: #00d4ff;">ViraLens AI</h2>
+    <button class="nav-btn active" onclick="buka(event, 'ideator')">✨ Ideator Engine</button>
+    <button class="nav-btn" onclick="buka(event, 'script')">📝 Script Writer</button>
+</div>
+
+<div class="main">
+    <div id="ideator" class="section active">
+        <h1>Ideator Engine</h1>
+        <div class="box">
+            <textarea id="inpIde" placeholder="Masukkan niche..."></textarea>
+            <button class="utama" onclick="prosesIde()">Cari Ide Viral</button>
+            <div id="hasil"></div>
+        </div>
     </div>
 
-    <div class="main-content">
-        
-        <div id="ideator" class="menu-section active">
-            <h1>Ideator Engine</h1>
-            <p style="color:var(--text-gray); margin-bottom:30px;">Temukan tren viral berdasarkan niche kamu.</p>
-            <div class="card">
-                <textarea id="inputIde" placeholder="Masukkan niche (Contoh: Gadget murah)..."></textarea>
-                <button class="btn-action" onclick="runIdeator()">🚀 Cari Ide Viral</button>
-                <div id="resIde" class="result-box"></div>
-            </div>
+    <div id="script" class="section">
+        <h1>Script Writer</h1>
+        <div class="box">
+            <p>Fitur Script Writer sedang disiapkan...</p>
         </div>
-
-        <div id="script" class="menu-section">
-            <h1>Script Writer</h1>
-            <p style="color:var(--text-gray); margin-bottom:30px;">Tulis naskah video yang bikin penonton betah.</p>
-            <div class="card">
-                <textarea id="inputScript" placeholder="Apa topik videomu?"></textarea>
-                <button class="btn-action" onclick="runScript()">📝 Buat Naskah AI</button>
-                <div id="resScript" class="result-box"></div>
-            </div>
-        </div>
-
-        <div id="visual" class="menu-section">
-            <h1>Visual Assistant</h1>
-            <p style="color:var(--text-gray); margin-bottom:30px;">Saran angle kamera dan pencahayaan untuk videomu.</p>
-            <div class="card">
-                <textarea placeholder="Deskripsikan suasana videomu..."></textarea>
-                <button class="btn-action">🎨 Cari Referensi Visual</button>
-            </div>
-        </div>
-
-        <div id="calendar" class="menu-section">
-            <h1>Content Calendar</h1>
-            <p style="color:var(--text-gray); margin-bottom:30px;">Jadwal posting otomatis berdasarkan data audiens.</p>
-            <div class="card">
-                <p>Fitur Kalender akan segera hadir untuk paket Pro!</p>
-            </div>
-        </div>
-
     </div>
+</div>
 
-    <script>
-        // FUNGSI PINDAH MENU
-        function showMenu(menuId, element) {
-            // Sembunyikan semua section
-            document.querySelectorAll('.menu-section').forEach(s => s.classList.remove('active'));
-            // Hilangkan status aktif di tombol sidebar
-            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-            
-            // Tampilkan section yang dipilih
-            document.getElementById(menuId).classList.add('active');
-            // Aktifkan tombol yang diklik
-            element.classList.add('active');
-        }
+<script>
+    // FUNGSI PINDAH MENU
+    function buka(evt, namaMenu) {
+        var i, section, navbtn;
+        section = document.getElementsByClassName("section");
+        for (i = 0; i < section.length; i++) { section[i].style.display = "none"; }
+        navbtn = document.getElementsByClassName("nav-btn");
+        for (i = 0; i < navbtn.length; i++) { navbtn[i].className = navbtn[i].className.replace(" active", ""); }
+        document.getElementById(namaMenu).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
 
-        // FUNGSI IDEATOR
-        function runIdeator() {
-            const input = document.getElementById('inputIde').value;
-            const res = document.getElementById('resIde');
-            if(!input) return alert("Isi niche dulu!");
-            res.style.display = "block";
-            res.innerHTML = "<em>AI sedang meriset tren...</em>";
-            setTimeout(() => {
-                res.innerHTML = "<strong>Ide untuk " + input + ":</strong><br>1. POV: Mencoba trik " + input + " yang lagi viral.<br>2. Alasan kenapa " + input + " kamu selalu gagal.";
-            }, 1000);
-        }
+    // FUNGSI PROSES
+    function prosesIde() {
+        var inp = document.getElementById('inpIde').value;
+        var h = document.getElementById('hasil');
+        if(!inp) { alert("Isi dulu niche-nya!"); return; }
+        h.style.display = "block";
+        h.innerHTML = "Memproses ide untuk " + inp + "...";
+        setTimeout(() => {
+            h.innerHTML = "<strong>Ide Viral:</strong><br>1. Cara rahasia master " + inp + "<br>2. Review jujur " + inp + " yang lagi hits.";
+        }, 1000);
+    }
+</script>
 
-        // FUNGSI SCRIPT WRITER
-        function runScript() {
-            const input = document.getElementById('inputScript').value;
-            const res = document.getElementById('resScript');
-            if(!input) return alert("Isi topik dulu!");
-            res.style.display = "block";
-            res.innerHTML = "<em>Menyusun naskah...</em>";
-            setTimeout(() => {
-                res.innerHTML = "<strong>Script Video:</strong><br>[Hook]: 'Pernah gak kepikiran soal " + input + "?'<br>[Body]: Jelasin poin uniknya...<br>[CTA]: 'Komen pendapat kalian!'";
-            }, 1000);
-        }
-    </script>
 </body>
 </html>
