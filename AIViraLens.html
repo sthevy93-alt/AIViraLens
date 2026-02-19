@@ -3,70 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ideator Engine - ViraLens</title>
+    <title>Dashboard - ViraLens AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --bg-dark: #000000;
+            --sidebar-bg: #050505;
+            --accent: #00d4ff;
+            --card-bg: #0a0a0a;
+            --text-gray: #888;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
-            background-color: #000;
-            color: white;
+            background-color: var(--bg-dark);
+            color: #fff;
             font-family: 'Inter', sans-serif;
-            margin: 0;
             display: flex;
             height: 100vh;
+            overflow: hidden;
         }
-        /* Sidebar samping */
+
+        /* Sidebar */
         .sidebar {
-            width: 250px;
-            background: #050505;
+            width: 280px;
+            background: var(--sidebar-bg);
             border-right: 1px solid #111;
             padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
         }
-        .sidebar h2 { color: #00d4ff; margin-bottom: 30px; }
-        
-        /* Area Konten Utama */
-        .main {
-            flex: 1;
-            padding: 50px;
-        }
-        .card {
-            background: #0a0a0a;
-            border: 1px solid #222;
-            padding: 30px;
-            border-radius: 20px;
-            max-width: 600px;
-        }
-        textarea {
-            width: 100%;
-            height: 120px;
-            background: #000;
-            color: #00d4ff;
-            border: 1px solid #333;
-            border-radius: 12px;
+
+        .sidebar h2 { color: var(--accent); font-weight: 800; margin-bottom: 40px; }
+
+        .nav-link {
             padding: 15px;
-            font-size: 1rem;
-            margin-bottom: 20px;
-            box-sizing: border-box;
-        }
-
-        /* TOMBOL INI YANG HARUS BISA DIKLIK */
-        .btn-klik {
-            background: #00d4ff;
-            color: #000;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 10px;
-            font-weight: 800;
+            color: var(--text-gray);
+            text-decoration: none;
+            border-radius: 12px;
+            margin-bottom: 8px;
+            transition: 0.3s;
+            font-weight: 600;
             cursor: pointer;
+            border: none;
+            background: transparent;
+            text-align: left;
             width: 100%;
-            font-size: 1rem;
+            display: block;
         }
-        .btn-klik:hover { background: #00a3c4; }
 
-        #boxHasil {
-            margin-top: 25px;
-            padding: 20px;
-            background: #111;
-            border-left: 4px solid #00d4ff;
-            display: none; /* Muncul kalau tombol diklik */
+        .nav-link.active {
+            background: rgba(0, 212, 255, 0.1);
+            color: var(--accent);
+            border-left: 4px solid var(--accent);
+        }
+
+        /* Main Content Area */
+        .main-content { flex: 1; padding: 60px; overflow-y: auto; }
+
+        .menu-section { display: none; } /* Sembunyikan semua menu dulu */
+        .menu-section.active { display: block; } /* Munculkan yang aktif */
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid #1a1a1a;
+            border-radius: 24px;
+            padding: 35px;
+            max-width: 800px;
+        }
+
+        textarea {
+            width: 100%; height: 120px; background: #000; border: 1px solid #222;
+            border-radius: 16px; padding: 20px; color: #fff; font-size: 1rem; margin-bottom: 20px;
+        }
+
+        .btn-action {
+            background: var(--accent); color: #000; border: none; padding: 15px 30px;
+            border-radius: 12px; font-weight: 800; cursor: pointer; width: 100%;
+        }
+
+        .result-box {
+            margin-top: 30px; padding: 20px; background: #050505; 
+            border-radius: 16px; border: 1px dashed #333; display: none;
         }
     </style>
 </head>
@@ -74,46 +93,90 @@
 
     <div class="sidebar">
         <h2>ViraLens AI</h2>
-        <p style="color:#00d4ff">✨ Ideator Engine</p>
-        <p style="color:#333">📝 Script Writer</p>
+        <button class="nav-link active" onclick="showMenu('ideator', this)">✨ Ideator Engine</button>
+        <button class="nav-link" onclick="showMenu('script', this)">📝 Script Writer</button>
+        <button class="nav-link" onclick="showMenu('visual', this)">🎨 Visual Assistant</button>
+        <button class="nav-link" onclick="showMenu('calendar', this)">📅 Content Calendar</button>
     </div>
 
-    <div class="main">
-        <h1>Ideator Engine</h1>
-        <p style="color:#666">Hasilkan ribuan ide konten unik sesuai niche Anda.</p>
-
-        <div class="card">
-            <textarea id="inputNiche" placeholder="Masukkan niche kamu (Contoh: Skincare, Gadget)"></textarea>
-            
-            <button class="btn-klik" onclick="mulaiProses()">🚀 Hasilkan Ide Viral</button>
-
-            <div id="boxHasil">
-                <strong style="color:#00d4ff">Hasil Ide AI:</strong>
-                <p id="isiTeks" style="margin-top:10px;"></p>
+    <div class="main-content">
+        
+        <div id="ideator" class="menu-section active">
+            <h1>Ideator Engine</h1>
+            <p style="color:var(--text-gray); margin-bottom:30px;">Temukan tren viral berdasarkan niche kamu.</p>
+            <div class="card">
+                <textarea id="inputIde" placeholder="Masukkan niche (Contoh: Gadget murah)..."></textarea>
+                <button class="btn-action" onclick="runIdeator()">🚀 Cari Ide Viral</button>
+                <div id="resIde" class="result-box"></div>
             </div>
         </div>
+
+        <div id="script" class="menu-section">
+            <h1>Script Writer</h1>
+            <p style="color:var(--text-gray); margin-bottom:30px;">Tulis naskah video yang bikin penonton betah.</p>
+            <div class="card">
+                <textarea id="inputScript" placeholder="Apa topik videomu?"></textarea>
+                <button class="btn-action" onclick="runScript()">📝 Buat Naskah AI</button>
+                <div id="resScript" class="result-box"></div>
+            </div>
+        </div>
+
+        <div id="visual" class="menu-section">
+            <h1>Visual Assistant</h1>
+            <p style="color:var(--text-gray); margin-bottom:30px;">Saran angle kamera dan pencahayaan untuk videomu.</p>
+            <div class="card">
+                <textarea placeholder="Deskripsikan suasana videomu..."></textarea>
+                <button class="btn-action">🎨 Cari Referensi Visual</button>
+            </div>
+        </div>
+
+        <div id="calendar" class="menu-section">
+            <h1>Content Calendar</h1>
+            <p style="color:var(--text-gray); margin-bottom:30px;">Jadwal posting otomatis berdasarkan data audiens.</p>
+            <div class="card">
+                <p>Fitur Kalender akan segera hadir untuk paket Pro!</p>
+            </div>
+        </div>
+
     </div>
 
     <script>
-        function mulaiProses() {
-            var input = document.getElementById('inputNiche').value;
-            var box = document.getElementById('boxHasil');
-            var teks = document.getElementById('isiTeks');
+        // FUNGSI PINDAH MENU
+        function showMenu(menuId, element) {
+            // Sembunyikan semua section
+            document.querySelectorAll('.menu-section').forEach(s => s.classList.remove('active'));
+            // Hilangkan status aktif di tombol sidebar
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+            
+            // Tampilkan section yang dipilih
+            document.getElementById(menuId).classList.add('active');
+            // Aktifkan tombol yang diklik
+            element.classList.add('active');
+        }
 
-            if (input.trim() === "") {
-                alert("Ketik dulu niche kamu!");
-                return;
-            }
+        // FUNGSI IDEATOR
+        function runIdeator() {
+            const input = document.getElementById('inputIde').value;
+            const res = document.getElementById('resIde');
+            if(!input) return alert("Isi niche dulu!");
+            res.style.display = "block";
+            res.innerHTML = "<em>AI sedang meriset tren...</em>";
+            setTimeout(() => {
+                res.innerHTML = "<strong>Ide untuk " + input + ":</strong><br>1. POV: Mencoba trik " + input + " yang lagi viral.<br>2. Alasan kenapa " + input + " kamu selalu gagal.";
+            }, 1000);
+        }
 
-            // Munculkan hasil
-            box.style.display = "block";
-            teks.innerHTML = "Sedang menganalisis tren " + input + "...";
-
-            setTimeout(function() {
-                teks.innerHTML = "• 3 Rahasia " + input + " yang jarang diketahui.<br>• Kenapa kamu gagal di " + input + ".<br>• Tutorial " + input + " untuk pemula.";
+        // FUNGSI SCRIPT WRITER
+        function runScript() {
+            const input = document.getElementById('inputScript').value;
+            const res = document.getElementById('resScript');
+            if(!input) return alert("Isi topik dulu!");
+            res.style.display = "block";
+            res.innerHTML = "<em>Menyusun naskah...</em>";
+            setTimeout(() => {
+                res.innerHTML = "<strong>Script Video:</strong><br>[Hook]: 'Pernah gak kepikiran soal " + input + "?'<br>[Body]: Jelasin poin uniknya...<br>[CTA]: 'Komen pendapat kalian!'";
             }, 1000);
         }
     </script>
-
 </body>
 </html>
