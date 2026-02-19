@@ -8,133 +8,133 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        :root {
-            --bg-dark: #070707;
-            --accent: #7C3AED;
-        }
-        body { 
-            font-family: 'Plus Jakarta Sans', sans-serif; 
-            background-color: var(--bg-dark); 
-            color: #fafafa;
-            overflow-x: hidden;
-        }
-        /* Efek Border Tipis ala Premium SaaS */
-        .bento-card {
-            background: rgba(15, 15, 15, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(10px);
-            transition: all 0.4s ease;
-        }
-        .bento-card:hover {
-            border-color: rgba(124, 58, 237, 0.4);
-            background: rgba(20, 20, 20, 0.8);
-            box-shadow: 0 0 30px rgba(124, 58, 237, 0.1);
-        }
-        /* Gradient Text Utama */
-        .text-gradient {
-            background: linear-gradient(to bottom right, #ffffff 40%, rgba(255, 255, 255, 0.5));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        /* Animasi Glow di Background */
-        .glow-overlay {
-            background: radial-gradient(circle at center, rgba(124, 58, 237, 0.15) 0%, transparent 70%);
-        }
+        :root { --bg: #050505; --accent: #7C3AED; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--bg); color: #fff; overflow-x: hidden; }
+        .bento-card { background: rgba(20, 20, 20, 0.6); border: 1px solid rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); transition: all 0.4s ease; }
+        .bento-card:hover { border-color: rgba(124, 58, 237, 0.4); transform: translateY(-5px); box-shadow: 0 20px 40px -20px rgba(124, 58, 237, 0.2); }
+        .text-gradient { background: linear-gradient(to bottom right, #fff 50%, #666); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .glow { position: absolute; width: 400px; height: 400px; background: radial-gradient(circle, rgba(124, 58, 237, 0.15) 0%, transparent 70%); z-index: -1; }
     </style>
 </head>
 <body class="antialiased">
 
-    <nav class="fixed w-full z-50 border-b border-white/5 bg-black/50 backdrop-blur-xl py-4">
-        <div class="container mx-auto px-6 flex justify-between items-center">
-            <div class="flex items-center gap-2">
-                <div class="w-8 h-8 bg-purple-600 rounded-lg flex items-center justify-center font-bold">V</div>
-                <span class="text-xl font-bold tracking-tighter">ViraLens</span>
+    <nav class="fixed w-full z-50 border-b border-white/5 bg-black/60 backdrop-blur-xl py-4 px-6">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-2 font-bold text-xl tracking-tighter">
+                <div class="w-7 h-7 bg-purple-600 rounded-lg"></div> ViraLens
             </div>
-            <div class="hidden md:flex items-center gap-8 text-sm font-medium text-white/60">
-                <a href="#features" class="hover:text-white transition">Fitur</a>
-                <a href="#pricing" class="hover:text-white transition">Harga</a>
-                <a href="#testimonials" class="hover:text-white transition">Testimoni</a>
+            <div class="hidden md:flex gap-8 text-sm font-medium text-gray-400">
+                <a href="#demo" class="hover:text-white transition">Demo</a>
+                <a href="#pricing" class="hover:text-white transition">Pricing</a>
+                <a href="#blog" class="hover:text-white transition">Resources</a>
             </div>
-            <button class="bg-white text-black px-5 py-2 rounded-full text-sm font-bold hover:bg-gray-200 transition">
-                Sign Up
-            </button>
+            <a href="#signup" class="bg-white text-black px-6 py-2 rounded-full text-sm font-bold hover:scale-105 transition">Sign Up</a>
         </div>
     </nav>
 
-    <section class="relative pt-40 pb-20 px-6 overflow-hidden">
-        <div class="glow-overlay absolute top-0 left-1/2 -translate-x-1/2 w-full h-[600px] -z-10"></div>
-        
-        <div class="container mx-auto text-center">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 text-[10px] font-bold text-white/50 uppercase tracking-widest mb-8">
-                ✨ AI-Powered Viral Engine v2.0
-            </div>
-            <h1 class="text-5xl md:text-8xl font-extrabold tracking-tighter text-gradient leading-[1.1] mb-8">
-                Ubah Konten Biasa <br> Jadi Viral dalam Detik.
-            </h1>
-            <p class="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed">
-                Platform all-in-one untuk memprediksi tren, membuat script otomatis, dan mendominasi algoritma media sosial.
-            </p>
-            <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <button class="bg-purple-600 px-8 py-4 rounded-full font-bold text-lg hover:bg-purple-700 shadow-lg shadow-purple-500/20 transition">Mulai Sekarang — Gratis</button>
-                <button class="bento-card px-8 py-4 rounded-full font-bold text-lg hover:bg-white/5 transition flex items-center justify-center gap-2">
-                    <i data-lucide="play" class="w-5 h-5 fill-current"></i> Lihat Demo
-                </button>
-            </div>
-        </div>
+    <section class="relative pt-40 pb-20 px-6 text-center">
+        <div class="glow top-0 left-1/2 -translate-x-1/2"></div>
+        <h1 class="text-5xl md:text-8xl font-extrabold tracking-tighter text-gradient mb-8 leading-tight">
+            Predict. Create. <br> Go Viral.
+        </h1>
+        <p class="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-10">
+            Platform AI pertama yang dirancang untuk membantu kreator menguasai tren sebelum meledak.
+        </p>
+        <a href="#signup" class="bg-purple-600 px-10 py-4 rounded-full font-bold text-lg hover:shadow-[0_0_30px_rgba(124,58,237,0.4)] transition inline-block">Mulai Sign Up Gratis</a>
     </section>
 
-    <section id="features" class="py-24 px-6 container mx-auto">
-        <div class="grid md:grid-cols-3 gap-4">
-            <div class="md:col-span-2 bento-card p-10 rounded-[2.5rem] flex flex-col justify-between h-[450px]">
-                <div>
-                    <div class="w-12 h-12 bg-purple-600/20 rounded-xl flex items-center justify-center text-purple-500 mb-6"><i data-lucide="zap"></i></div>
-                    <h3 class="text-3xl font-bold mb-4 tracking-tight text-white">Trend Intelligence</h3>
-                    <p class="text-gray-400 max-w-sm">Temukan audio dan hashtag yang akan trending dalam 48 jam ke depan sebelum orang lain menyadarinya.</p>
+    <section class="py-10 px-6 container mx-auto">
+        <div class="grid md:grid-cols-3 grid-rows-2 gap-4 h-full md:h-[800px]">
+            
+            <div id="demo" class="md:col-span-2 md:row-span-1 bento-card rounded-[2.5rem] p-8 overflow-hidden relative">
+                <div class="mb-6">
+                    <span class="text-purple-400 text-xs font-bold uppercase tracking-widest">Platform Preview</span>
+                    <h3 class="text-3xl font-bold mt-2">Dashboard Pintar</h3>
                 </div>
-                <div class="flex gap-2 items-end h-24">
-                    <div class="w-full bg-purple-500/20 h-1/2 rounded-md"></div>
-                    <div class="w-full bg-purple-500/40 h-3/4 rounded-md"></div>
-                    <div class="w-full bg-purple-500/60 h-2/3 rounded-md"></div>
-                    <div class="w-full bg-purple-500 h-full rounded-md shadow-[0_0_20px_rgba(168,85,247,0.4)]"></div>
-                </div>
-            </div>
-
-            <div class="bento-card p-10 rounded-[2.5rem] flex flex-col justify-between">
-                <div class="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center text-blue-500 mb-6"><i data-lucide="edit-3"></i></div>
-                <h3 class="text-xl font-bold mb-2">AI Scripting</h3>
-                <p class="text-gray-400 text-sm">Hasilkan script video dengan hook yang mematikan secara otomatis.</p>
-            </div>
-
-            <div class="bento-card p-10 rounded-[2.5rem] flex flex-col justify-between">
-                <div class="w-12 h-12 bg-green-500/20 rounded-xl flex items-center justify-center text-green-500 mb-6"><i data-lucide="clock"></i></div>
-                <h3 class="text-xl font-bold mb-2">Best Posting Time</h3>
-                <p class="text-gray-400 text-sm">Ketahui jam tayang paling optimal berdasarkan database audiens Anda.</p>
-            </div>
-
-            <div class="md:col-span-2 bento-card p-10 rounded-[2.5rem] flex flex-col md:flex-row items-center gap-8">
-                <div class="flex-1">
-                    <h3 class="text-2xl font-bold mb-4">Competitor Tracking</h3>
-                    <p class="text-gray-400 text-sm">Pantau apa yang dilakukan kompetitor Anda dan pelajari rahasia kesuksesan konten mereka secara instan.</p>
-                </div>
-                <div class="flex-1 bg-white/5 border border-white/5 rounded-2xl p-6 w-full">
-                    <div class="space-y-4">
-                        <div class="h-2 w-3/4 bg-white/10 rounded"></div>
-                        <div class="h-2 w-1/2 bg-white/10 rounded"></div>
-                        <div class="h-2 w-full bg-white/10 rounded"></div>
+                <div class="bg-gradient-to-br from-purple-900/40 to-black border border-white/10 rounded-2xl h-64 w-full p-4">
+                    <div class="flex gap-2 mb-4">
+                        <div class="w-3 h-3 rounded-full bg-red-500/50"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500/50"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500/50"></div>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="h-4 w-1/3 bg-white/10 rounded"></div>
+                        <div class="h-20 w-full bg-white/5 rounded-xl border border-white/5 flex items-center justify-center">
+                            <i data-lucide="bar-chart" class="text-purple-500 w-10 h-10"></i>
+                        </div>
                     </div>
                 </div>
             </div>
+
+            <div class="md:col-span-1 md:row-span-2 bento-card rounded-[2.5rem] p-8 flex flex-col justify-between border-blue-500/20">
+                <div>
+                    <i data-lucide="quote" class="text-blue-500 mb-6"></i>
+                    <h3 class="text-2xl font-bold mb-6">Kata Kreator</h3>
+                    <div class="space-y-6">
+                        <div class="bg-white/5 p-4 rounded-2xl border border-white/5">
+                            <p class="text-sm text-gray-400 italic">"Gak perlu riset manual lagi, ViraLens kasih tau jam posting paling ramai!"</p>
+                            <span class="text-xs font-bold block mt-3">— @Sasha_Beauty</span>
+                        </div>
+                        <div class="bg-white/5 p-4 rounded-2xl border border-white/5">
+                            <p class="text-sm text-gray-400 italic">"Retention rate konten saya naik 45% pakai fitur Hook AI."</p>
+                            <span class="text-xs font-bold block mt-3">— Budi (Tech Reviewer)</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-8 flex gap-1">
+                    <i data-lucide="star" class="w-4 h-4 text-yellow-500 fill-current"></i>
+                    <i data-lucide="star" class="w-4 h-4 text-yellow-500 fill-current"></i>
+                    <i data-lucide="star" class="w-4 h-4 text-yellow-500 fill-current"></i>
+                    <i data-lucide="star" class="w-4 h-4 text-yellow-500 fill-current"></i>
+                    <i data-lucide="star" class="w-4 h-4 text-yellow-500 fill-current"></i>
+                </div>
+            </div>
+
+            <div id="pricing" class="md:col-span-1 bento-card rounded-[2.5rem] p-8 bg-gradient-to-b from-purple-600/10 to-transparent">
+                <h3 class="text-xl font-bold mb-2">Creator Pro</h3>
+                <div class="text-4xl font-extrabold mb-4">Rp 149k<span class="text-sm font-normal text-gray-500">/bln</span></div>
+                <ul class="text-sm text-gray-400 space-y-2 mb-8">
+                    <li><i data-lucide="check" class="inline w-3 mr-2 text-purple-500"></i> Unlimited AI Script</li>
+                    <li><i data-lucide="check" class="inline w-3 mr-2 text-purple-500"></i> Trend Tracker 24/7</li>
+                </ul>
+                <button class="w-full py-3 rounded-xl bg-white text-black font-bold text-sm">Ambil Paket</button>
+            </div>
+
+            <div id="blog" class="md:col-span-1 bento-card rounded-[2.5rem] p-8 group cursor-pointer">
+                <div class="flex justify-between items-start mb-6">
+                    <h3 class="text-xl font-bold">Blog & Tips</h3>
+                    <i data-lucide="arrow-up-right" class="group-hover:translate-x-1 group-hover:-translate-y-1 transition"></i>
+                </div>
+                <div class="space-y-4">
+                    <div class="border-b border-white/5 pb-2">
+                        <p class="text-xs text-purple-400 mb-1">Februari 2026</p>
+                        <p class="text-sm font-semibold">Rahasia Algoritma TikTok Terbaru</p>
+                    </div>
+                    <div>
+                        <p class="text-xs text-purple-400 mb-1">Tips AI</p>
+                        <p class="text-sm font-semibold">Cara Pakai ViraLens Untuk Affiliate</p>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </section>
 
-    <footer class="py-20 border-t border-white/5 text-center">
-        <div class="text-xl font-bold mb-4 tracking-tighter">ViraLens.</div>
-        <p class="text-gray-600 text-xs tracking-widest uppercase">© 2026 Designed for Creators</p>
+    <section id="signup" class="py-24 px-6 text-center">
+        <div class="max-w-4xl mx-auto bento-card rounded-[3rem] p-12 bg-gradient-to-r from-purple-900/20 to-blue-900/20">
+            <h2 class="text-4xl font-bold mb-6">Siap Menjadi Kreator Masa Depan?</h2>
+            <p class="text-gray-400 mb-10 max-w-lg mx-auto">Bergabunglah dengan 10.000+ pengguna yang sudah mendominasi FYP setiap hari.</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <input type="email" placeholder="Masukkan Email Anda" class="bg-white/5 border border-white/10 px-6 py-4 rounded-full w-full sm:w-80 focus:outline-none focus:border-purple-500">
+                <button class="bg-white text-black px-10 py-4 rounded-full font-bold hover:scale-105 transition">Sign Up Gratis</button>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-10 text-center text-gray-600 text-xs border-t border-white/5">
+        © 2026 ViraLens AI. All Rights Reserved.
     </footer>
 
-    <script>
-        // Inisialisasi Ikon Lucide
-        lucide.createIcons();
-    </script>
+    <script>lucide.createIcons();</script>
 </body>
 </html>
