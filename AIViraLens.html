@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ideator Engine - ViraLens</title>
+    <style>
+        body {
+            background-color: #000;
+            color: white;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            display: flex;
+            height: 100vh;
+        }
+        /* Sidebar samping */
+        .sidebar {
+            width: 250px;
+            background: #050505;
+            border-right: 1px solid #111;
+            padding: 30px 20px;
+        }
+        .sidebar h2 { color: #00d4ff; margin-bottom: 30px; }
+        
+        /* Area Konten Utama */
+        .main {
+            flex: 1;
+            padding: 50px;
+        }
+        .card {
+            background: #0a0a0a;
+            border: 1px solid #222;
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 600px;
+        }
+        textarea {
+            width: 100%;
+            height: 120px;
+            background: #000;
+            color: #00d4ff;
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 15px;
+            font-size: 1rem;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+        }
+
+        /* TOMBOL INI YANG HARUS BISA DIKLIK */
+        .btn-klik {
+            background: #00d4ff;
+            color: #000;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-weight: 800;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1rem;
+        }
+        .btn-klik:hover { background: #00a3c4; }
+
+        #boxHasil {
+            margin-top: 25px;
+            padding: 20px;
+            background: #111;
+            border-left: 4px solid #00d4ff;
+            display: none; /* Muncul kalau tombol diklik */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <h2>ViraLens AI</h2>
+        <p style="color:#00d4ff">✨ Ideator Engine</p>
+        <p style="color:#333">📝 Script Writer</p>
+    </div>
+
+    <div class="main">
+        <h1>Ideator Engine</h1>
+        <p style="color:#666">Hasilkan ribuan ide konten unik sesuai niche Anda.</p>
+
+        <div class="card">
+            <textarea id="inputNiche" placeholder="Masukkan niche kamu (Contoh: Skincare, Gadget)"></textarea>
+            
+            <button class="btn-klik" onclick="mulaiProses()">🚀 Hasilkan Ide Viral</button>
+
+            <div id="boxHasil">
+                <strong style="color:#00d4ff">Hasil Ide AI:</strong>
+                <p id="isiTeks" style="margin-top:10px;"></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function mulaiProses() {
+            var input = document.getElementById('inputNiche').value;
+            var box = document.getElementById('boxHasil');
+            var teks = document.getElementById('isiTeks');
+
+            if (input.trim() === "") {
+                alert("Ketik dulu niche kamu!");
+                return;
+            }
+
+            // Munculkan hasil
+            box.style.display = "block";
+            teks.innerHTML = "Sedang menganalisis tren " + input + "...";
+
+            setTimeout(function() {
+                teks.innerHTML = "• 3 Rahasia " + input + " yang jarang diketahui.<br>• Kenapa kamu gagal di " + input + ".<br>• Tutorial " + input + " untuk pemula.";
+            }, 1000);
+        }
+    </script>
+
+</body>
+</html>
