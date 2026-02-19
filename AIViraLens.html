@@ -3,34 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ViraLens AI - Konten Viral dalam Hitungan Detik</title>
+    <title>ViraLens AI - Konten Viral Instan</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
     <style>
-        :root { --accent: #00d4ff; --bg: #000; --card: #111; --text: #fff; }
-        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
-        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; overflow-x: hidden; }
+        :root { --accent: #00d4ff; --bg: #000; --card: #0a0a0a; --nav-bg: #050505; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: var(--bg); color: #fff; font-family: 'Inter', sans-serif; overflow: hidden; }
 
-        /* --- TAMPILAN LANDING PAGE (Sesuai Gambar) --- */
-        #landing-page {
+        /* --- 1. LANDING PAGE (DITAMPILKAN PERTAMA) --- */
+        #hero-page {
             height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 20px;
             background: radial-gradient(circle at center, #001a1a 0%, #000 100%);
+            padding: 20px;
+            z-index: 10;
         }
-        #landing-page h1 { font-size: 3.5rem; font-weight: 800; line-height: 1.1; margin-bottom: 20px; }
-        #landing-page h1 span { color: var(--accent); }
-        #landing-page p { color: #888; max-width: 600px; margin-bottom: 40px; font-size: 1.1rem; }
+        #hero-page h1 { font-size: 3.5rem; font-weight: 800; line-height: 1.1; margin-bottom: 20px; }
+        #hero-page h1 span { color: var(--accent); }
+        #hero-page p { color: #888; max-width: 600px; margin-bottom: 40px; font-size: 1.1rem; }
         
-        /* Tombol Biru Sesuai Gambar */
+        /* Tombol Biru Besar */
         .btn-mulai {
             background: var(--accent);
             color: #000;
             border: none;
-            padding: 18px 45px;
+            padding: 20px 50px;
             border-radius: 50px;
             font-size: 1.2rem;
             font-weight: 800;
@@ -40,120 +41,72 @@
         }
         .btn-mulai:hover { transform: scale(1.05); box-shadow: 0 0 40px rgba(0, 212, 255, 0.6); }
 
-        /* --- SECTION FITUR MASA DEPAN (Sesuai Gambar) --- */
-        .fitur-preview { padding: 80px 20px; text-align: center; background: #000; }
-        .fitur-preview h2 { font-size: 2.5rem; margin-bottom: 50px; font-weight: 800; }
-        .grid-fitur { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
-            gap: 20px; 
-            max-width: 1200px; 
-            margin: 0 auto; 
-        }
-        .card-fitur { 
-            background: #0a0a0a; 
-            border: 1px solid #222; 
-            padding: 40px 30px; 
-            border-radius: 15px; 
-            text-align: left; 
-            transition: 0.3s;
-        }
-        .card-fitur h3 { color: var(--accent); margin-bottom: 15px; font-size: 1.3rem; }
-        .card-fitur p { color: #888; font-size: 0.95rem; line-height: 1.6; }
-        .card-fitur:hover { border-color: var(--accent); background: #0d0d0d; }
-
-        /* --- DASHBOARD UTAMA (Muncul Setelah Klik) --- */
-        #dashboard-section {
-            display: none; /* Sembunyi di awal */
+        /* --- 2. DASHBOARD UTAMA (HIDDEN SECARA DEFAULT) --- */
+        #main-dashboard {
+            display: none; /* Disembunyikan dulu */
             height: 100vh;
-            display: none;
             grid-template-columns: 260px 1fr;
-            background: #000;
-            border-top: 1px solid #111;
         }
 
-        .sidebar { background: #050505; border-right: 1px solid #111; padding: 30px 20px; }
-        .sidebar h2 { color: var(--accent); font-size: 1.4rem; margin-bottom: 30px; }
-        .nav-btn { width: 100%; padding: 14px; background: none; border: none; color: #888; text-align: left; cursor: pointer; border-radius: 10px; margin-bottom: 10px; font-weight: bold; transition: 0.3s; }
+        /* Sidebar */
+        .sidebar { background: var(--nav-bg); border-right: 1px solid #111; padding: 30px 20px; display: flex; flex-direction: column; }
+        .sidebar h2 { color: var(--accent); margin-bottom: 30px; font-size: 1.5rem; font-weight: 800; }
+        .nav-btn { width: 100%; padding: 14px; background: none; border: none; color: #888; text-align: left; cursor: pointer; border-radius: 10px; margin-bottom: 8px; font-weight: bold; transition: 0.3s; }
         .nav-btn.active { background: rgba(0, 212, 255, 0.1); color: var(--accent); border: 1px solid rgba(0, 212, 255, 0.2); }
-        .nav-btn:hover:not(.active) { color: #fff; background: #111; }
+        .nav-btn:hover:not(.active) { background: #111; color: #fff; }
 
-        .main-app { padding: 50px; overflow-y: auto; }
-        .app-card { background: #0a0a0a; border: 1px solid #1a1a1a; padding: 35px; border-radius: 20px; max-width: 800px; }
-        .content-panel { display: none; animation: fadeIn 0.4s ease; }
-        .content-panel.active { display: block; }
+        /* Konten */
+        .main-container { flex: 1; padding: 50px; overflow-y: auto; }
+        .app-panel { display: none; animation: fadeIn 0.4s ease; }
+        .app-panel.active { display: block; }
+        
+        .card { background: var(--card); border: 1px solid #1a1a1a; padding: 35px; border-radius: 20px; max-width: 800px; }
+        h1.panel-title { font-size: 2.2rem; font-weight: 800; margin-bottom: 10px; }
+        p.panel-desc { color: #888; margin-bottom: 30px; }
 
-        textarea { width: 100%; height: 120px; background: #000; color: var(--accent); border: 1px solid #333; border-radius: 15px; padding: 20px; font-size: 1rem; margin-bottom: 20px; outline: none; }
+        textarea { width: 100%; height: 120px; background: #000; color: var(--accent); border: 1px solid #222; border-radius: 15px; padding: 15px; font-size: 1rem; margin-bottom: 20px; outline: none; }
         .btn-action { background: var(--accent); color: #000; border: none; padding: 16px; border-radius: 12px; font-weight: 800; cursor: pointer; width: 100%; transition: 0.3s; }
         
-        .result-box { margin-top: 25px; padding: 20px; background: #050505; border-left: 4px solid var(--accent); border-radius: 10px; display: none; }
+        .result-box { margin-top: 25px; padding: 20px; background: #050505; border-left: 4px solid var(--accent); border-radius: 10px; display: none; line-height: 1.6; }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
 
-    <div id="landing-page">
-        <nav style="position: absolute; top: 20px; width: 100%; display: flex; justify-content: space-between; padding: 0 50px; align-items: center;">
-            <div style="font-weight: 800; color: var(--accent);">AI ViraLens</div>
-            <div style="font-size: 0.9rem; color: #888;">Features &nbsp; Pricing &nbsp; <button style="background: none; border: 1px solid var(--accent); color: var(--accent); padding: 5px 15px; border-radius: 5px; cursor: pointer;">Login</button></div>
-        </nav>
-
+    <div id="hero-page">
         <h1>Ubah Ide Mentah Menjadi<br><span>Konten Viral</span> dalam<br>Hitungan Detik.</h1>
-        <p>Asisten AI tercanggih untuk kreator yang ingin mendominasi algoritma tanpa lelah berpikir.</p>
-        
-        <button class="btn-mulai" onclick="bukaDashboard()">Mulai Buat Konten Gratis</button>
+        <p>Gunakan teknologi AI ViraLens untuk mendominasi algoritma tanpa lelah berpikir.</p>
+        <button class="btn-mulai" onclick="jalankanApp()">Mulai Buat Konten Gratis</button>
     </div>
 
-    <div id="fitur-preview-section" class="fitur-preview">
-        <h2>Fitur Masa Depan</h2>
-        <div class="grid-fitur">
-            <div class="card-fitur">
-                <h3>Ideator Engine</h3>
-                <p>Temukan tren sebelum viral dan hasilkan ribuan ide konten unik sesuai niche Anda.</p>
-            </div>
-            <div class="card-fitur">
-                <h3>Script Writer</h3>
-                <p>Tinggalkan blokade kreatif. AI kami menulis skrip yang memicu retensi tinggi.</p>
-            </div>
-            <div class="card-fitur">
-                <h3>Visual Assistant</h3>
-                <p>Dapatkan saran visual dan aset grafis instan untuk mempercantik video atau postingan Anda.</p>
-            </div>
-            <div class="card-fitur">
-                <h3>Content Calendar</h3>
-                <p>Kelola jadwal posting secara otomatis di berbagai platform dari satu dasbor cerdas.</p>
-            </div>
-        </div>
-    </div>
-
-    <div id="dashboard-section">
+    <div id="main-dashboard">
         <aside class="sidebar">
             <h2>ViraLens AI</h2>
-            <button class="nav-btn active" onclick="pindahTab('ideator', this)">✨ Ideator Engine</button>
-            <button class="nav-btn" onclick="pindahTab('writer', this)">📝 Script Writer</button>
-            <button class="nav-btn" onclick="pindahTab('visual', this)">🎨 Visual Assistant</button>
-            <button class="nav-btn" onclick="pindahTab('calendar', this)">📅 Content Calendar</button>
+            <button class="nav-btn active" onclick="switchTab('ideator', this)">✨ Ideator Engine</button>
+            <button class="nav-btn" onclick="switchTab('writer', this)">📝 Script Writer</button>
+            <button class="nav-btn" onclick="switchTab('visual', this)">🎨 Visual Assistant</button>
+            <button class="nav-btn" onclick="switchTab('calendar', this)">📅 Content Calendar</button>
         </aside>
 
-        <main class="main-app">
-            <div id="panel-ideator" class="content-panel active">
-                <h1>Ideator Engine</h1>
-                <p style="color: #888; margin-bottom: 25px;">Hasilkan ide konten yang dirancang untuk viral.</p>
-                <div class="app-card">
-                    <textarea id="in-ideator" placeholder="Contoh: Skincare pemula, Affiliate Shopee..."></textarea>
-                    <button class="btn-action" onclick="proses('ideator')">Hasilkan Ide</button>
-                    <div id="res-ideator" class="result-box"></div>
+        <main class="main-container">
+            <div id="tab-ideator" class="app-panel active">
+                <h1 class="panel-title">Ideator Engine</h1>
+                <p class="panel-desc">Temukan tren sebelum viral dan hasilkan ribuan ide konten unik sesuai niche Anda.</p>
+                <div class="card">
+                    <textarea id="in-ideator" placeholder="Contoh: Affiliate, Skincare, Masak..."></textarea>
+                    <button class="btn-action" onclick="runIdeator()">🚀 Cari Ide Viral</button>
+                    <div id="out-ideator" class="result-box"></div>
                 </div>
             </div>
 
-            <div id="panel-writer" class="content-panel">
-                <h1>Script Writer</h1>
-                <p style="color: #888; margin-bottom: 25px;">Tulis naskah video dengan retensi tinggi.</p>
-                <div class="app-card">
-                    <textarea id="in-writer" placeholder="Tulis topik video Anda..."></textarea>
-                    <button class="btn-action" onclick="proses('writer')">Buat Script</button>
-                    <div id="res-writer" class="result-box"></div>
+            <div id="tab-writer" class="app-panel">
+                <h1 class="panel-title">Script Writer</h1>
+                <p class="panel-desc">Tulis skrip yang memicu retensi tinggi untuk video Anda.</p>
+                <div class="card">
+                    <textarea id="in-writer" placeholder="Topik video yang ingin dibuat script-nya..."></textarea>
+                    <button class="btn-action" onclick="runWriter()">✍️ Buat Script</button>
+                    <div id="out-writer" class="result-box"></div>
                 </div>
             </div>
 
@@ -161,45 +114,41 @@
     </div>
 
     <script>
-        // FUNGSI MEMBUKA DASHBOARD
-        function bukaDashboard() {
-            // Sembunyikan Landing Page & Fitur Preview
-            document.getElementById('landing-page').style.display = 'none';
-            document.getElementById('fitur-preview-section').style.display = 'none';
-            
-            // Munculkan Dashboard
-            const dashboard = document.getElementById('dashboard-section');
+        // FUNGSI UTAMA: KLIK TOMBOL -> GANTI HALAMAN
+        function jalankanApp() {
+            // Hilangkan landing page
+            document.getElementById('hero-page').style.display = 'none';
+            // Munculkan dashboard
+            const dashboard = document.getElementById('main-dashboard');
             dashboard.style.display = 'grid';
-            
-            // Scroll ke atas
-            window.scrollTo(0, 0);
+            // Fokus ke input pertama
+            document.getElementById('in-ideator').focus();
         }
 
-        // FUNGSI PINDAH TAB SIDEBAR
-        function pindahTab(targetId, btn) {
-            document.querySelectorAll('.content-panel').forEach(p => p.classList.remove('active'));
+        // FUNGSI GANTI TAB SIDEBAR
+        function switchTab(tabId, btn) {
+            document.querySelectorAll('.app-panel').forEach(p => p.classList.remove('active'));
             document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
             
-            document.getElementById('panel-' + targetId).classList.add('active');
+            document.getElementById('tab-' + tabId).classList.add('active');
             btn.classList.add('active');
         }
 
-        // LOGIKA PROSES SIMULASI
-        function proses(type) {
-            const input = document.getElementById('in-' + type).value;
-            const res = document.getElementById('res-' + type);
-            if(!input) return alert("Isi input dulu!");
-
+        // SIMULASI PROSES AI
+        function runIdeator() {
+            const val = document.getElementById('in-ideator').value;
+            const res = document.getElementById('out-ideator');
+            if(!val) return alert("Ketik topiknya dulu!");
             res.style.display = "block";
-            res.innerHTML = "<em>Menganalisa tren AI...</em>";
+            res.innerHTML = `<strong>Topik: ${val}</strong><br>1. POV: Sesuatu yang jarang orang tahu tentang ${val}.<br>2. Rahasia sukses di niche ${val} untuk pemula.`;
+        }
 
-            setTimeout(() => {
-                if(type === 'ideator') {
-                    res.innerHTML = `<strong>Rekomendasi Ide:</strong><br>1. POV: Pakai ${input} tapi malah jadi begini...<br>2. 3 Alasan kenapa ${input} gagal bagi pemula.`;
-                } else {
-                    res.innerHTML = `<strong>Draft Script:</strong><br>Hook: "Berhenti scroll! Kalau kamu masih pakai ${input}, kamu wajib nonton ini..."`;
-                }
-            }, 1000);
+        function runWriter() {
+            const val = document.getElementById('in-writer').value;
+            const res = document.getElementById('out-writer');
+            if(!val) return alert("Isi ide konten!");
+            res.style.display = "block";
+            res.innerHTML = `<strong>Hook:</strong> "Jangan scroll dulu! Kamu wajib tahu cara ${val} ini..."`;
         }
     </script>
 </body>
