@@ -10,23 +10,23 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { background: var(--bg); color: #fff; font-family: 'Inter', sans-serif; display: flex; height: 100vh; }
         
-        /* Sidebar */
         .sidebar { width: 250px; background: #050505; border-right: 1px solid #111; padding: 30px 20px; }
         .sidebar h2 { color: var(--accent); margin-bottom: 30px; font-size: 1.2rem; }
         .nav-btn { width: 100%; padding: 12px; background: none; border: none; color: #888; text-align: left; cursor: pointer; border-radius: 8px; margin-bottom: 10px; font-weight: bold; }
         .nav-btn.active { background: rgba(0, 212, 255, 0.1); color: var(--accent); }
 
-        /* Main Area */
         .main { flex: 1; padding: 50px; overflow-y: auto; }
         .card { background: var(--card); border: 1px solid #1a1a1a; padding: 30px; border-radius: 20px; max-width: 700px; }
         h1 { margin-bottom: 10px; font-size: 2rem; }
         p.desc { color: #888; margin-bottom: 30px; }
 
         textarea { width: 100%; height: 120px; background: #000; color: var(--accent); border: 1px solid #222; border-radius: 12px; padding: 15px; font-size: 1rem; margin-bottom: 20px; outline: none; }
-        .btn-action { background: var(--accent); color: #000; border: none; padding: 15px; border-radius: 10px; font-weight: 800; cursor: pointer; width: 100%; }
+        .btn-action { background: var(--accent); color: #000; border: none; padding: 15px; border-radius: 10px; font-weight: 800; cursor: pointer; width: 100%; transition: 0.3s; }
+        .btn-action:disabled { background: #333; color: #777; cursor: not-allowed; }
         
-        /* Hasil */
         #resultBox { margin-top: 30px; padding: 20px; background: #050505; border-left: 4px solid var(--accent); border-radius: 8px; display: none; line-height: 1.6; }
+        .premium-box { margin-top: 15px; padding: 15px; background: rgba(255, 215, 0, 0.1); border: 1px solid gold; border-radius: 10px; color: gold; display: none; text-align: center; }
+        .btn-wa { display: inline-block; margin-top: 10px; padding: 10px 20px; background: #25d366; color: #fff; text-decoration: none; border-radius: 5px; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -39,22 +39,39 @@
 
     <div class="main">
         <h1>Ideator Engine</h1>
-        <p class="desc">Masukkan niche kamu untuk mendapatkan ide konten viral.</p>
+        <p class="desc">Masukkan niche kamu untuk mendapatkan ide konten viral (Gratis 5x coba).</p>
 
         <div class="card">
             <textarea id="topicInput" placeholder="Contoh: Jualan sepatu, Tips masak mie..."></textarea>
-            <button class="btn-action" onclick="generateIdea()">🚀 Cari Ide Viral</button>
+            <button id="mainBtn" class="btn-action" onclick="generateIdea()">🚀 Cari Ide Viral</button>
+            
+            <div id="premiumBox" class="premium-box">
+                <p>⚠️ Kuota gratis harian kamu sudah habis!</p>
+                <a href="https://wa.me/628123456789?text=Halo%20ViraLens,%20saya%20ingin%20upgrade%20ke%20Premium" class="btn-wa" target="_blank">Upgrade ke Premium (Rp 29rb)</a>
+            </div>
+
             <div id="resultBox"></div>
         </div>
     </div>
 
     <script>
-        // GANTI BAGIAN INI DENGAN API KEY KAMU
         const API_KEY = "AIzaSyButvGuiHBKltyUgBxWts2bBDXLGC_fsic"; 
 
         async function generateIdea() {
             const topic = document.getElementById('topicInput').value;
             const resBox = document.getElementById('resultBox');
+            const premiumBox = document.getElementById('premiumBox');
+            const mainBtn = document.getElementById('mainBtn');
+
+            // --- LOGIKA PEMBATAS KUOTA ---
+            let count = parseInt(localStorage.getItem("usage_count") || 0);
+
+            if (count >= 5) {
+                premiumBox.style.display = "block";
+                mainBtn.disabled = true;
+                return;
+            }
+            // -----------------------------
 
             if (!topic) {
                 alert("Masukkan topik dulu ya!");
@@ -74,12 +91,18 @@
                 });
 
                 const data = await response.json();
+                
                 if (data.candidates) {
                     const output = data.candidates[0].content.parts[0].text;
-                    // Bersihkan tanda bintang dan ganti baris
                     resBox.innerHTML = "<strong>Hasil Ide AI:</strong><br><br>" + output.replace(/\*/g, "").replace(/\n/g, "<br>");
+                    
+                    // --- TAMBAH HITUNGAN SETELAH BERHASIL ---
+                    count++;
+                    localStorage.setItem("usage_count", count);
+                    // ---------------------------------------
+                    
                 } else {
-                    resBox.innerHTML = "❌ Error: API Key tidak valid atau kuota habis.";
+                    resBox.innerHTML = "❌ Error: API Key bermasalah. Pastikan API Key di project baru sudah benar.";
                 }
             } catch (error) {
                 resBox.innerHTML = "❌ Gagal menyambung ke AI. Coba lagi.";
