@@ -8,110 +8,163 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; }
-        .content-card:hover { transform: translateY(-5px); transition: all 0.3s ease; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; transition: all 0.5s ease; }
         .gradient-brand { background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); }
+        .glass-dark { background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(10px); }
+        .input-auth { width: 100%; border: 1px solid #e2e8f0; border-radius: 0.5rem; padding: 0.75rem 1rem 0.75rem 3rem; outline: none; transition: border-color 0.2s; }
+        .input-auth:focus { border-color: #4f46e5; }
+        .modal { display: none; position: fixed; inset: 0; z-index: 100; align-items: center; justify-content: center; background: rgba(0,0,0,0.6); padding: 1rem; }
+        #dashboardView { display: none; }
     </style>
 </head>
-<body class="text-slate-800">
+<body class="bg-[#0b0f1a] text-white">
 
-    <header class="bg-white border-b border-slate-200 sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <div class="flex items-center gap-2">
-                    <div class="p-2 gradient-brand rounded-lg">
-                        <i class="fas fa-camera-retro text-white text-xl"></i>
-                    </div>
-                    <span class="text-xl font-extrabold tracking-tight text-slate-900">AI <span class="text-indigo-600">ViraLens</span></span>
-                </div>
-                <div class="hidden md:flex items-center bg-slate-100 rounded-full px-4 py-2 w-1/3">
-                    <i class="fas fa-search text-slate-400 mr-2"></i>
-                    <input type="text" placeholder="Cari ide konten..." class="bg-transparent border-none outline-none text-sm w-full">
-                </div>
-                <div class="flex items-center gap-4">
-                    <button class="text-slate-500 hover:text-indigo-600"><i class="far fa-bookmark text-xl"></i></button>
-                    <img src="https://ui-avatars.com/api/?name=User&background=4f46e5&color=fff" class="w-8 h-8 rounded-full shadow-sm border border-slate-200" alt="Profile">
-                </div>
+    <div id="landingView">
+        <nav class="flex justify-between items-center px-8 py-6 max-w-7xl mx-auto">
+            <div class="text-2xl font-extrabold">AI <span class="text-indigo-500">ViraLens</span></div>
+            <div class="hidden md:flex space-x-6 text-gray-400 text-sm">
+                <a href="#">Dashboard</a><a href="#">Fitur</a><a href="#">Harga</a>
             </div>
-        </div>
-    </header>
+            <button onclick="toggleModal('modalRegister')" class="gradient-brand px-6 py-2.5 rounded-full font-bold text-sm">Mulai Sekarang</button>
+        </nav>
 
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        
-        <div class="mb-10">
-            <h1 class="text-3xl font-bold text-slate-900 mb-2">Selamat Datang di AI ViraLens ✨</h1>
-            <p class="text-slate-500">Temukan konten terbaik yang siap digunakan untuk meningkatkan engagement Anda.</p>
-        </div>
-
-        <div class="flex gap-3 mb-8 overflow-x-auto pb-2 no-scrollbar">
-            <button class="bg-indigo-600 text-white px-5 py-2 rounded-full text-sm font-medium whitespace-nowrap">Semua</button>
-            <button class="bg-white border border-slate-200 text-slate-600 px-5 py-2 rounded-full text-sm font-medium hover:border-indigo-400 whitespace-nowrap transition">Trending TikTok</button>
-            <button class="bg-white border border-slate-200 text-slate-600 px-5 py-2 rounded-full text-sm font-medium hover:border-indigo-400 whitespace-nowrap transition">Reels Ideas</button>
-            <button class="bg-white border border-slate-200 text-slate-600 px-5 py-2 rounded-full text-sm font-medium hover:border-indigo-400 whitespace-nowrap transition">Edukasi</button>
-            <button class="bg-white border border-slate-200 text-slate-600 px-5 py-2 rounded-full text-sm font-medium hover:border-indigo-400 whitespace-nowrap transition">Hiburan</button>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <main class="max-w-7xl mx-auto px-8 py-20 text-center">
+            <h1 class="text-5xl md:text-7xl font-extrabold mb-8 leading-tight">Lihat Potensi Konten Anda <br>Melalui <span class="text-indigo-500">Lensa AI</span></h1>
+            <p class="text-gray-400 max-w-2xl mx-auto mb-12">AI ViraLens membantu kreator mendeteksi tren, menganalisis audiens, dan membuat konten Anda menjadi viral secara otomatis.</p>
             
-            <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100 content-card">
-                <div class="relative">
-                    <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=500&q=80" class="w-full h-48 object-cover" alt="Trend 1">
-                    <span class="absolute top-3 left-3 bg-red-500 text-white text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider">Hot Trend</span>
+            <div class="max-w-3xl mx-auto bg-white/5 border border-white/10 p-6 rounded-3xl">
+                <div class="flex flex-col md:flex-row gap-3">
+                    <input type="text" placeholder="Tempel link konten Anda di sini..." class="flex-1 bg-white/5 border border-white/10 rounded-xl px-6 py-4 outline-none focus:border-indigo-500">
+                    <button onclick="toggleModal('modalRegister')" class="gradient-brand px-8 py-4 rounded-xl font-bold">Analisis Sekarang</button>
                 </div>
-                <div class="p-5">
-                    <h3 class="font-bold text-slate-800 mb-2 line-clamp-1">Ide Konten "A Day In My Life"</h3>
-                    <p class="text-xs text-slate-500 mb-4">Gunakan sound ini untuk meningkatkan view hingga 200%.</p>
-                    <div class="flex items-center justify-between">
-                        <span class="text-indigo-600 font-bold text-sm">Gratis</span>
-                        <button class="text-xs font-bold bg-slate-100 px-3 py-2 rounded-lg hover:bg-indigo-50 hover:text-indigo-600 transition">Gunakan</button>
-                    </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6 text-xs text-gray-500">
+                    <div><i class="fas fa-bolt text-yellow-500 mr-2"></i>Real-time</div>
+                    <div>Aman</div>
+                    <div><i class="fas fa-chart-line text-blue-500 mr-2"></i>Akurat</div>
+                    <div><i class="fas fa-microchip text-purple-500 mr-2"></i>Neural Engine</div>
                 </div>
             </div>
-
-            <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100 content-card">
-                <div class="relative">
-                    <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=500&q=80" class="w-full h-48 object-cover" alt="Trend 2">
-                    <span class="absolute top-3 left-3 bg-blue-500 text-white text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider">Tutorial</span>
-                </div>
-                <div class="p-5">
-                    <h3 class="font-bold text-slate-800 mb-2 line-clamp-1">Review Gadget AI Minimalis</h3>
-                    <p class="text-xs text-slate-500 mb-4">Script konten untuk niche teknologi dan setup meja.</p>
-                    <div class="flex items-center justify-between">
-                        <span class="text-indigo-600 font-bold text-sm">Premium</span>
-                        <button class="text-xs font-bold bg-slate-100 px-3 py-2 rounded-lg hover:bg-indigo-50 hover:text-indigo-600 transition">Gunakan</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100 content-card">
-                <div class="relative">
-                    <img src="https://images.unsplash.com/photo-1493770348161-369560ae357d?auto=format&fit=crop&w=500&q=80" class="w-full h-48 object-cover" alt="Trend 3">
-                    <span class="absolute top-3 left-3 bg-green-500 text-white text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider">Foodie</span>
-                </div>
-                <div class="p-5">
-                    <h3 class="font-bold text-slate-800 mb-2 line-clamp-1">Resep Makanan Sehat 30 Detik</h3>
-                    <p class="text-xs text-slate-500 mb-4">Template video untuk niche kuliner yang lagi ramai.</p>
-                    <div class="flex items-center justify-between">
-                        <span class="text-indigo-600 font-bold text-sm">Gratis</span>
-                        <button class="text-xs font-bold bg-slate-100 px-3 py-2 rounded-lg hover:bg-indigo-50 hover:text-indigo-600 transition">Gunakan</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="border-2 border-dashed border-slate-200 rounded-2xl flex flex-col items-center justify-center p-5 text-slate-400 hover:border-indigo-300 hover:bg-indigo-50/30 transition cursor-pointer group">
-                <i class="fas fa-plus-circle text-3xl mb-2 group-hover:scale-110 transition"></i>
-                <span class="text-sm font-medium">Tambah Koleksi</span>
-            </div>
-
-        </div>
-    </main>
-
-    <div class="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 px-6 py-3 flex justify-between items-center z-50">
-        <button class="text-indigo-600 flex flex-col items-center"><i class="fas fa-home text-lg"></i><span class="text-[10px] mt-1 font-bold">Home</span></button>
-        <button class="text-slate-400 flex flex-col items-center"><i class="fas fa-fire text-lg"></i><span class="text-[10px] mt-1">Trending</span></button>
-        <button class="text-slate-400 flex flex-col items-center"><i class="fas fa-folder text-lg"></i><span class="text-[10px] mt-1">Koleksi</span></button>
-        <button class="text-slate-400 flex flex-col items-center"><i class="fas fa-user-circle text-lg"></i><span class="text-[10px] mt-1">Akun</span></button>
+        </main>
     </div>
 
+    <div id="dashboardView" class="bg-slate-50 text-slate-800 min-h-screen">
+        <header class="bg-white border-b border-slate-200 sticky top-0 z-50 px-8 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <div class="p-2 gradient-brand rounded-lg text-white"><i class="fas fa-camera-retro"></i></div>
+                <span class="text-xl font-bold">AI ViraLens</span>
+            </div>
+            <button onclick="logout()" class="text-sm font-bold text-red-500 bg-red-50 px-4 py-2 rounded-lg">Keluar</button>
+        </header>
+        
+        <main class="max-w-7xl mx-auto px-8 py-10">
+            <h1 class="text-3xl font-bold mb-6">Selamat Datang di Dashboard ✨</h1>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition">
+                    <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=500&q=80" class="rounded-xl mb-4 h-40 w-full object-cover">
+                    <h3 class="font-bold">Ide Konten Viral TikTok</h3>
+                    <p class="text-xs text-slate-500 mt-2 mb-4">Gunakan sound trending ini untuk naikkan engagement.</p>
+                    <button class="w-full py-2 bg-indigo-50 text-indigo-600 rounded-lg font-bold text-sm">Gunakan</button>
+                </div>
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition">
+                    <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=500&q=80" class="rounded-xl mb-4 h-40 w-full object-cover">
+                    <h3 class="font-bold">Template Reels Minimalis</h3>
+                    <p class="text-xs text-slate-500 mt-2 mb-4">Script konten untuk niche teknologi.</p>
+                    <button class="w-full py-2 bg-indigo-50 text-indigo-600 rounded-lg font-bold text-sm">Gunakan</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div id="modalRegister" class="modal">
+        <div class="bg-white text-slate-900 rounded-3xl w-full max-w-md p-8 relative">
+            <button onclick="toggleModal('modalRegister')" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button>
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-extrabold">Buat Akun Gratis</h2>
+                <p class="text-gray-500 text-sm mt-2">Mulai ciptakan konten viral dengan AI ViraLens</p>
+            </div>
+            <form class="space-y-4" onsubmit="event.preventDefault(); goToDashboard();">
+                <div>
+                    <label class="text-sm font-bold block mb-1">Nama Lengkap</label>
+                    <div class="relative"><i class="far fa-user absolute left-4 top-4 text-gray-400"></i><input type="text" placeholder="John Doe" class="input-auth"></div>
+                </div>
+                <div>
+                    <label class="text-sm font-bold block mb-1">Email</label>
+                    <div class="relative"><i class="far fa-envelope absolute left-4 top-4 text-gray-400"></i><input type="email" placeholder="john@example.com" class="input-auth"></div>
+                </div>
+                <div>
+                    <label class="text-sm font-bold block mb-1">Password</label>
+                    <div class="relative"><i class="fas fa-lock absolute left-4 top-4 text-gray-400"></i><input type="password" placeholder="Minimal 6 karakter" class="input-auth"></div>
+                </div>
+                <div>
+                    <label class="text-sm font-bold block mb-1">Konfirmasi Password</label>
+                    <div class="relative"><i class="fas fa-lock absolute left-4 top-4 text-gray-400"></i><input type="password" placeholder="Ulangi password" class="input-auth"></div>
+                </div>
+                <button type="submit" class="w-full gradient-brand text-white py-4 rounded-xl font-bold text-lg mt-4 shadow-lg shadow-indigo-200">Daftar Sekarang</button>
+            </form>
+            <div class="text-center mt-6 text-sm">
+                <p class="text-gray-500">Sudah punya akun? <button onclick="openLogin()" class="text-indigo-600 font-bold">Login di sini</button></p>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalLogin" class="modal">
+        <div class="bg-white text-slate-900 rounded-3xl w-full max-w-md p-8 relative">
+            <button onclick="toggleModal('modalLogin')" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button>
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-extrabold">Masuk Akun</h2>
+                <p class="text-gray-500 text-sm mt-2">Gunakan akun ViraLens Anda</p>
+            </div>
+            <form class="space-y-4" onsubmit="event.preventDefault(); goToDashboard();">
+                <div>
+                    <label class="text-sm font-bold block mb-1">Email</label>
+                    <div class="relative"><i class="far fa-envelope absolute left-4 top-4 text-gray-400"></i><input type="email" placeholder="john@example.com" class="input-auth"></div>
+                </div>
+                <div>
+                    <label class="text-sm font-bold block mb-1">Password</label>
+                    <div class="relative"><i class="fas fa-lock absolute left-4 top-4 text-gray-400"></i><input type="password" placeholder="******" class="input-auth"></div>
+                </div>
+                <div class="text-right">
+                    <button type="button" class="text-xs text-indigo-600 font-bold">Lupa password?</button>
+                </div>
+                <button type="submit" class="w-full gradient-brand text-white py-4 rounded-xl font-bold text-lg shadow-lg">Login Sekarang</button>
+            </form>
+            <div class="text-center mt-6 text-sm">
+                <p class="text-gray-500">Belum punya akun? <button onclick="toggleModal('modalRegister')" class="text-indigo-600 font-bold">Daftar di sini</button></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleModal(id) {
+            const modals = ['modalRegister', 'modalLogin'];
+            modals.forEach(m => document.getElementById(m).style.display = 'none');
+            const target = document.getElementById(id);
+            if(target) target.style.display = 'flex';
+        }
+
+        function openLogin() {
+            toggleModal('modalLogin');
+        }
+
+        function goToDashboard() {
+            document.getElementById('landingView').style.display = 'none';
+            document.getElementById('modalRegister').style.display = 'none';
+            document.getElementById('modalLogin').style.display = 'none';
+            document.getElementById('dashboardView').style.display = 'block';
+            window.scrollTo(0,0);
+        }
+
+        function logout() {
+            document.getElementById('dashboardView').style.display = 'none';
+            document.getElementById('landingView').style.display = 'block';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target.className === 'modal') {
+                event.target.style.display = 'none';
+            }
+        }
+    </script>
 </body>
 </html>
