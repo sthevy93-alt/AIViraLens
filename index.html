@@ -3,60 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI ViraLens - Analisis Konten Pintar</title>
+    <title>AI ViraLens - Temukan Konten Viral Anda</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #0f172a; color: white; }
-        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
-        .gradient-text { background: linear-gradient(90deg, #38bdf8, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; }
+        .content-card:hover { transform: translateY(-5px); transition: all 0.3s ease; }
+        .gradient-brand { background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); }
     </style>
 </head>
-<body class="min-h-screen">
+<body class="text-slate-800">
 
-    <nav class="flex items-center justify-between px-8 py-6 max-w-7xl mx-auto">
-        <div class="text-2xl font-extrabold tracking-tight">AI <span class="gradient-text">ViraLens</span></div>
-        <div class="hidden md:flex space-x-8 text-sm font-medium text-gray-400">
-            <a href="#" class="hover:text-white transition">Dashboard</a>
-            <a href="#" class="hover:text-white transition">Fitur</a>
-            <a href="#" class="hover:text-white transition">Harga</a>
-        </div>
-        <button class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-xl text-sm font-bold transition">Mulai Sekarang</button>
-    </nav>
-
-    <main class="max-w-7xl mx-auto px-8 py-20 text-center">
-        <div class="inline-block px-4 py-1.5 mb-6 rounded-full glass text-xs font-semibold text-blue-400 border border-blue-500/30">
-            ✨ Revolusi Analisis Konten Berbasis AI
-        </div>
-        <h1 class="text-5xl md:text-7xl font-extrabold mb-8 leading-tight">
-            Lihat Potensi Konten Anda <br>Melalui <span class="gradient-text">Lensa AI</span>
-        </h1>
-        <p class="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-12 leading-relaxed">
-            AI ViraLens membantu kreator mendeteksi tren, menganalisis audiens, dan membuat konten Anda menjadi viral secara otomatis.
-        </p>
-
-        <div class="max-w-4xl mx-auto p-2 rounded-3xl glass shadow-2xl">
-            <div class="bg-slate-900/50 rounded-2xl p-8 border border-white/5">
-                <div class="flex flex-col md:flex-row gap-4">
-                    <input type="text" placeholder="Tempel link konten Anda di sini..." class="flex-1 bg-white/5 border border-white/10 rounded-xl px-6 py-4 focus:outline-none focus:border-blue-500 transition">
-                    <button class="bg-gradient-to-r from-blue-600 to-indigo-600 px-8 py-4 rounded-xl font-bold hover:opacity-90 transition shadow-lg shadow-blue-500/20">
-                        Analisis Sekarang
-                    </button>
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center gap-2">
+                    <div class="p-2 gradient-brand rounded-lg">
+                        <i class="fas fa-camera-retro text-white text-xl"></i>
+                    </div>
+                    <span class="text-xl font-extrabold tracking-tight text-slate-900">AI <span class="text-indigo-600">ViraLens</span></span>
                 </div>
-                <div class="mt-8 grid grid-cols-2 md:grid-cols-4 gap-6 text-sm text-gray-500 font-medium">
-                    <div class="flex items-center justify-center gap-2"><i class="fas fa-bolt text-yellow-500"></i> Real-time</div>
-                    <div class="flex items-center justify-center gap-2"><i class="fas fa-shield-halved text-green-500"></i> Aman</div>
-                    <div class="flex items-center justify-center gap-2"><i class="fas fa-chart-line text-blue-500"></i> Akurat</div>
-                    <div class="flex items-center justify-center gap-2"><i class="fas fa-microchip text-purple-500"></i> Neural Engine</div>
+                <div class="hidden md:flex items-center bg-slate-100 rounded-full px-4 py-2 w-1/3">
+                    <i class="fas fa-search text-slate-400 mr-2"></i>
+                    <input type="text" placeholder="Cari ide konten..." class="bg-transparent border-none outline-none text-sm w-full">
+                </div>
+                <div class="flex items-center gap-4">
+                    <button class="text-slate-500 hover:text-indigo-600"><i class="far fa-bookmark text-xl"></i></button>
+                    <img src="https://ui-avatars.com/api/?name=User&background=4f46e5&color=fff" class="w-8 h-8 rounded-full shadow-sm border border-slate-200" alt="Profile">
                 </div>
             </div>
         </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        <div class="mb-10">
+            <h1 class="text-3xl font-bold text-slate-900 mb-2">Selamat Datang di AI ViraLens ✨</h1>
+            <p class="text-slate-500">Temukan konten terbaik yang siap digunakan untuk meningkatkan engagement Anda.</p>
+        </div>
+
+        <div class="flex gap-3 mb-8 overflow-x-auto pb-2 no-scrollbar">
+            <button class="bg-indigo-600 text-white px-5 py-2 rounded-full text-sm font-medium whitespace-nowrap">Semua</button>
+            <button class="bg-white border border-slate-200 text-slate-600 px-5 py-2 rounded-full text-sm font-medium hover:border-indigo-400 whitespace-nowrap transition">Trending TikTok</button>
+            <button class="bg-white border border-slate-200 text-slate-600 px-5 py-2 rounded-full text-sm font-medium hover:border-indigo-400 whitespace-nowrap transition">Reels Ideas</button>
+            <button class="bg-white border border-slate-200 text-slate-600 px-5 py-2 rounded-full text-sm font-medium hover:border-indigo-400 whitespace-nowrap transition">Edukasi</button>
+            <button class="bg-white border border-slate-200 text-slate-600 px-5 py-2 rounded-full text-sm font-medium hover:border-indigo-400 whitespace-nowrap transition">Hiburan</button>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            
+            <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100 content-card">
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=500&q=80" class="w-full h-48 object-cover" alt="Trend 1">
+                    <span class="absolute top-3 left-3 bg-red-500 text-white text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider">Hot Trend</span>
+                </div>
+                <div class="p-5">
+                    <h3 class="font-bold text-slate-800 mb-2 line-clamp-1">Ide Konten "A Day In My Life"</h3>
+                    <p class="text-xs text-slate-500 mb-4">Gunakan sound ini untuk meningkatkan view hingga 200%.</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-indigo-600 font-bold text-sm">Gratis</span>
+                        <button class="text-xs font-bold bg-slate-100 px-3 py-2 rounded-lg hover:bg-indigo-50 hover:text-indigo-600 transition">Gunakan</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100 content-card">
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=500&q=80" class="w-full h-48 object-cover" alt="Trend 2">
+                    <span class="absolute top-3 left-3 bg-blue-500 text-white text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider">Tutorial</span>
+                </div>
+                <div class="p-5">
+                    <h3 class="font-bold text-slate-800 mb-2 line-clamp-1">Review Gadget AI Minimalis</h3>
+                    <p class="text-xs text-slate-500 mb-4">Script konten untuk niche teknologi dan setup meja.</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-indigo-600 font-bold text-sm">Premium</span>
+                        <button class="text-xs font-bold bg-slate-100 px-3 py-2 rounded-lg hover:bg-indigo-50 hover:text-indigo-600 transition">Gunakan</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100 content-card">
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1493770348161-369560ae357d?auto=format&fit=crop&w=500&q=80" class="w-full h-48 object-cover" alt="Trend 3">
+                    <span class="absolute top-3 left-3 bg-green-500 text-white text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider">Foodie</span>
+                </div>
+                <div class="p-5">
+                    <h3 class="font-bold text-slate-800 mb-2 line-clamp-1">Resep Makanan Sehat 30 Detik</h3>
+                    <p class="text-xs text-slate-500 mb-4">Template video untuk niche kuliner yang lagi ramai.</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-indigo-600 font-bold text-sm">Gratis</span>
+                        <button class="text-xs font-bold bg-slate-100 px-3 py-2 rounded-lg hover:bg-indigo-50 hover:text-indigo-600 transition">Gunakan</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-2 border-dashed border-slate-200 rounded-2xl flex flex-col items-center justify-center p-5 text-slate-400 hover:border-indigo-300 hover:bg-indigo-50/30 transition cursor-pointer group">
+                <i class="fas fa-plus-circle text-3xl mb-2 group-hover:scale-110 transition"></i>
+                <span class="text-sm font-medium">Tambah Koleksi</span>
+            </div>
+
+        </div>
     </main>
 
-    <footer class="mt-20 border-t border-white/5 py-10 text-center text-gray-500 text-sm">
-        <p>&copy; 2026 AI ViraLens. Dibuat untuk masa depan digital.</p>
-    </footer>
+    <div class="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 px-6 py-3 flex justify-between items-center z-50">
+        <button class="text-indigo-600 flex flex-col items-center"><i class="fas fa-home text-lg"></i><span class="text-[10px] mt-1 font-bold">Home</span></button>
+        <button class="text-slate-400 flex flex-col items-center"><i class="fas fa-fire text-lg"></i><span class="text-[10px] mt-1">Trending</span></button>
+        <button class="text-slate-400 flex flex-col items-center"><i class="fas fa-folder text-lg"></i><span class="text-[10px] mt-1">Koleksi</span></button>
+        <button class="text-slate-400 flex flex-col items-center"><i class="fas fa-user-circle text-lg"></i><span class="text-[10px] mt-1">Akun</span></button>
+    </div>
 
 </body>
 </html>
