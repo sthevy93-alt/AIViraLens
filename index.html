@@ -3,161 +3,214 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI ViraLens - Premium Dashboard</title>
+    <title>AI ViraLens - Premium Creator Platform</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
         
-        :root { --brand: #4f46e5; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #ffffff; color: #1a1a1a; transition: all 0.4s ease; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; }
         
-        /* Utility Classes */
-        .glass-header { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); border-bottom: 1px solid #f0f0f0; }
-        .btn-brand { background: var(--brand); color: white; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-        .btn-brand:hover { transform: translateY(-2px); box-shadow: 0 10px 20px -10px var(--brand); opacity: 0.9; }
+        .btn-primary { 
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover { transform: translateY(-2px); opacity: 0.9; box-shadow: 0 10px 20px -5px rgba(79, 70, 229, 0.4); }
         
-        /* Modal Animation */
-        .modal { display: none; position: fixed; inset: 0; z-index: 100; align-items: center; justify-content: center; background: rgba(0,0,0,0.4); backdrop-filter: blur(8px); }
-        .modal-content { animation: slideUp 0.4s ease-out; }
-        @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .glass-dark { background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        
+        .modal { display: none; position: fixed; inset: 0; z-index: 100; align-items: center; justify-content: center; background: rgba(0,0,0,0.5); backdrop-filter: blur(8px); }
+        
+        .input-custom { 
+            width: 100%; border: 1px solid #e2e8f0; border-radius: 12px; 
+            padding: 12px 16px 12px 44px; outline: none; transition: all 0.2s;
+        }
+        .input-custom:focus { border-color: #4f46e5; ring: 3px; ring-color: rgba(79, 70, 229, 0.1); }
 
-        .input-premium { width: 100%; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px 16px 14px 44px; outline: none; transition: all 0.2s; }
-        .input-premium:focus { border-color: var(--brand); background: white; box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1); }
-        
-        #dashboardView { display: none; background: #fcfcfd; }
+        #dashboardView { display: none; background: #f8fafc; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
     </style>
 </head>
-<body>
+<body class="bg-[#0b0f1a] text-white">
 
     <div id="landingView">
-        <header class="glass-header sticky top-0 z-50 px-8 py-5 flex justify-between items-center">
-            <div class="text-xl font-extrabold tracking-tighter flex items-center gap-2">
-                <div class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center"><i class="fas fa-bolt text-white text-xs"></i></div>
-                ViraLens<span class="text-indigo-600">AI</span>
-            </div>
-            <nav class="hidden md:flex gap-8 text-sm font-semibold text-gray-500">
-                <a href="#" class="hover:text-black transition">Fitur</a>
-                <a href="#" class="hover:text-black transition">Harga</a>
-                <a href="#" class="hover:text-black transition">Blog</a>
-            </nav>
-            <button onclick="openModal('register')" class="btn-brand px-6 py-2.5 rounded-full text-sm font-bold">Mulai Sekarang</button>
+        <header class="flex justify-between items-center px-8 py-6 max-w-7xl mx-auto">
+            <div class="text-2xl font-extrabold tracking-tight">AI <span class="text-indigo-500">ViraLens</span></div>
+            <button onclick="openModal('register')" class="btn-primary px-6 py-2.5 rounded-full font-bold text-sm">Mulai Sekarang</button>
         </header>
 
-        <main class="max-w-6xl mx-auto px-8 py-24 text-center">
-            <h1 class="text-6xl md:text-8xl font-extrabold tracking-tight mb-8">Ciptakan Konten Viral dengan Kekuatan AI</h1>
-            <p class="text-gray-500 text-xl max-w-2xl mx-auto mb-12 leading-relaxed font-medium">Platform cerdas untuk kreator masa depan. Analisis, temukan tren, dan dominasi feed audiens Anda.</p>
+        <main class="max-w-7xl mx-auto px-8 py-20 text-center">
+            <div class="inline-block px-4 py-1.5 mb-6 rounded-full glass-dark text-xs font-bold text-indigo-400 tracking-wider">
+                ✨ REVOLUSI ANALISIS KONTEN BERBASIS AI
+            </div>
+            <h1 class="text-5xl md:text-7xl font-extrabold mb-8 leading-tight">
+                Lihat Potensi Konten Anda <br>Melalui <span class="text-indigo-400">Lensa AI</span>
+            </h1>
+            <p class="text-gray-400 text-lg max-w-2xl mx-auto mb-12">
+                AI ViraLens membantu kreator mendeteksi tren, menganalisis audiens, dan membuat konten Anda menjadi viral secara otomatis.
+            </p>
             
-            <div class="max-w-2xl mx-auto relative group">
-                <div class="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-2xl blur opacity-25 group-hover:opacity-40 transition duration-1000"></div>
-                <div class="relative bg-white p-2 rounded-2xl border border-gray-100 flex shadow-xl">
-                    <input type="text" placeholder="Masukkan link video..." class="flex-1 px-6 py-4 outline-none text-gray-700 bg-transparent">
-                    <button onclick="openModal('register')" class="btn-brand px-8 py-4 rounded-xl font-bold">Analisis</button>
+            <div class="max-w-3xl mx-auto p-4 rounded-3xl glass-dark shadow-2xl mb-32">
+                <div class="flex flex-col md:flex-row gap-3">
+                    <input type="text" placeholder="Tempel link konten Anda di sini..." class="flex-1 bg-white/5 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-indigo-500">
+                    <button onclick="openModal('register')" class="btn-primary px-10 py-4 rounded-2xl font-bold">Analisis Sekarang</button>
+                </div>
+                <div class="flex flex-wrap justify-center gap-8 mt-8 text-[10px] font-bold uppercase tracking-widest text-gray-500">
+                    <span><i class="fas fa-bolt text-yellow-500 mr-2"></i>Real-time</span>
+                    <span>Aman</span>
+                    <span><i class="fas fa-chart-line text-blue-500 mr-2"></i>Akurat</span>
+                    <span><i class="fas fa-microchip text-purple-500 mr-2"></i>Neural Engine</span>
                 </div>
             </div>
 
-            <div class="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8 opacity-60">
-                <div class="text-center"><h4 class="text-3xl font-bold">4.9/5</h4><p class="text-xs font-bold uppercase tracking-widest text-gray-400">Rating User</p></div>
-                <div class="text-center"><h4 class="text-3xl font-bold">500+</h4><p class="text-xs font-bold uppercase tracking-widest text-gray-400">Review</p></div>
-                <div class="text-center"><h4 class="text-3xl font-bold">10k+</h4><p class="text-xs font-bold uppercase tracking-widest text-gray-400">Konten Viral</p></div>
-                <div class="text-center"><h4 class="text-3xl font-bold">24/7</h4><p class="text-xs font-bold uppercase tracking-widest text-gray-400">AI Support</p></div>
-            </div>
+            <section class="py-20 bg-white text-slate-900 rounded-[50px]">
+                <div class="max-w-7xl mx-auto px-8">
+                    <h2 class="text-4xl font-extrabold mb-4">Dipercaya oleh Ribuan Creator</h2>
+                    <p class="text-gray-500 mb-16">Lihat apa kata mereka tentang AI ViraLens</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm text-left relative">
+                            <i class="fas fa-quote-right absolute top-6 right-6 text-indigo-100 text-3xl"></i>
+                            <div class="flex items-center gap-3 mb-4">
+                                <div class="w-10 h-10 rounded-full bg-indigo-600 flex items-center justify-center text-white font-bold text-xs">SW</div>
+                                <div>
+                                    <h4 class="font-bold text-sm">Sarah Wijaya</h4>
+                                    <p class="text-[10px] text-indigo-600 font-bold">@sarahcreates</p>
+                                </div>
+                            </div>
+                            <div class="flex text-yellow-400 text-[10px] mb-3"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                            <p class="text-gray-600 text-xs leading-relaxed">AI ViraLens benar-benar game changer! Engagement saya naik 300% dalam 2 bulan. Sangat akurat memprediksi tren.</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm text-left">
+                            <div class="flex items-center gap-3 mb-4">
+                                <div class="w-10 h-10 rounded-full bg-purple-600 flex items-center justify-center text-white font-bold text-xs">BS</div>
+                                <div><h4 class="font-bold text-sm">Budi Santoso</h4><p class="text-[10px] text-gray-400">UMKM Owner</p></div>
+                            </div>
+                            <div class="flex text-yellow-400 text-[10px] mb-3"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                            <p class="text-gray-600 text-xs leading-relaxed">Saya tidak punya waktu riset konten. AI ViraLens memberikan ide yang langsung bisa saya pakai dan hasilnya luar biasa!</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm text-left">
+                            <div class="flex items-center gap-3 mb-4">
+                                <div class="w-10 h-10 rounded-full bg-pink-600 flex items-center justify-center text-white font-bold text-xs">RK</div>
+                                <div><h4 class="font-bold text-sm">Rina Kusuma</h4><p class="text-[10px] text-gray-400">Affiliate Marketer</p></div>
+                            </div>
+                            <div class="flex text-yellow-400 text-[10px] mb-3"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                            <p class="text-gray-600 text-xs leading-relaxed">Menghemat waktu saya 10 jam per minggu. Ide konten yang dihasilkan selalu fresh dan relevan dengan audiens saya.</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm text-left">
+                            <div class="flex items-center gap-3 mb-4">
+                                <div class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold text-xs">AF</div>
+                                <div><h4 class="font-bold text-sm">Ahmad Fauzi</h4><p class="text-[10px] text-gray-400">Social Media Manager</p></div>
+                            </div>
+                            <div class="flex text-yellow-400 text-[10px] mb-3"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                            <p class="text-gray-600 text-xs leading-relaxed">Analytics dashboard-nya sangat powerful. Saya bisa track performa secara real-time. ROI meningkat drastis!</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </main>
     </div>
 
-    <div id="dashboardView" class="min-h-screen">
-        <header class="glass-header px-8 py-4 flex justify-between items-center bg-white">
-            <div class="font-bold text-lg">ViraLens Dashboard</div>
+    <div id="dashboardView" class="min-h-screen text-slate-900">
+        <header class="bg-white border-b border-slate-200 sticky top-0 z-50 px-8 py-4 flex justify-between items-center shadow-sm">
+            <div class="flex items-center gap-2">
+                <div class="p-2 btn-primary rounded-lg text-white"><i class="fas fa-camera-retro"></i></div>
+                <span class="text-xl font-extrabold">AI ViraLens</span>
+            </div>
             <div class="flex items-center gap-4">
-                <button onclick="logout()" class="text-xs font-bold text-gray-400 hover:text-red-500 transition">Keluar</button>
-                <div class="w-10 h-10 rounded-full bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600 font-bold">U</div>
+                <button class="text-slate-400 hover:text-indigo-600"><i class="far fa-bookmark text-xl"></i></button>
+                <button onclick="logout()" class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center font-bold text-indigo-600 border border-slate-200">US</button>
             </div>
         </header>
 
-        <main class="max-w-7xl mx-auto px-8 py-12">
-            <div class="flex flex-col md:flex-row justify-between items-end gap-6 mb-12">
-                <div>
-                    <h2 class="text-4xl font-extrabold mb-2">Halo, Kreator 👋</h2>
-                    <p class="text-gray-500 font-medium">Berikut adalah rekomendasi konten untuk Anda hari ini.</p>
-                </div>
-                <div class="flex gap-2">
-                    <button class="px-5 py-2.5 rounded-full bg-black text-white text-sm font-bold">Semua</button>
-                    <button class="px-5 py-2.5 rounded-full bg-white border border-gray-200 text-gray-600 text-sm font-bold hover:bg-gray-50">Trending</button>
-                </div>
+        <main class="max-w-7xl mx-auto px-8 py-10">
+            <h1 class="text-3xl font-bold mb-2">Selamat Datang di AI ViraLens ✨</h1>
+            <p class="text-slate-500 mb-8">Temukan konten terbaik yang siap digunakan untuk meningkatkan engagement Anda.</p>
+
+            <div class="flex gap-3 mb-10 overflow-x-auto no-scrollbar pb-2">
+                <button class="bg-indigo-600 text-white px-6 py-2 rounded-full text-sm font-bold">Semua</button>
+                <button class="bg-white border border-slate-200 px-6 py-2 rounded-full text-sm font-bold hover:bg-slate-50">Trending TikTok</button>
+                <button class="bg-white border border-slate-200 px-6 py-2 rounded-full text-sm font-bold hover:bg-slate-50">Reels Ideas</button>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-white rounded-3xl p-4 border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 group">
-                    <div class="h-56 bg-gray-100 rounded-2xl mb-6 overflow-hidden relative">
-                        <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                        <div class="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-[10px] font-bold">TIKTOK TREND</div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-slate-100 group">
+                    <div class="relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=600&q=80" class="w-full h-48 object-cover group-hover:scale-110 transition duration-500">
+                        <span class="absolute top-4 left-4 bg-red-500 text-white text-[10px] font-bold px-2.5 py-1 rounded-lg uppercase tracking-wider">Hot Trend</span>
                     </div>
-                    <h3 class="text-xl font-bold mb-2 px-2">Eksperimen Gaya Transisi Baru</h3>
-                    <p class="text-gray-400 text-sm px-2 mb-6">Sound trending dengan potensi view 100k+.</p>
-                    <button class="w-full py-4 bg-gray-50 text-gray-900 rounded-2xl font-bold hover:bg-indigo-600 hover:text-white transition">Gunakan Template</button>
+                    <div class="p-6">
+                        <h3 class="font-bold mb-2">Ide Konten "A Day In My Life"</h3>
+                        <p class="text-[11px] text-gray-500 mb-6">Gunakan sound ini untuk meningkatkan view hingga 200%.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-indigo-600 font-bold text-sm">Gratis</span>
+                            <button class="px-4 py-2 bg-slate-50 rounded-xl text-[11px] font-bold hover:bg-indigo-600 hover:text-white transition">Gunakan</button>
+                        </div>
+                    </div>
                 </div>
-                
+                <div class="border-2 border-dashed border-slate-200 rounded-3xl flex flex-col items-center justify-center p-8 text-slate-400 hover:bg-indigo-50/50 cursor-pointer transition">
+                    <i class="fas fa-plus-circle text-3xl mb-3"></i>
+                    <span class="text-sm font-bold">Tambah Koleksi</span>
                 </div>
+            </div>
         </main>
     </div>
 
     <div id="authModal" class="modal">
-        <div id="formRegister" class="modal-content bg-white w-full max-w-md p-10 rounded-[32px] shadow-2xl relative">
-            <button onclick="closeModal()" class="absolute top-6 right-6 text-gray-300 hover:text-gray-900"><i class="fas fa-times"></i></button>
+        <div id="regForm" class="bg-white w-full max-w-md p-10 rounded-[40px] shadow-2xl relative text-slate-900">
+            <button onclick="closeModal()" class="absolute top-6 right-8 text-slate-300 hover:text-slate-900"><i class="fas fa-times text-xl"></i></button>
             <div class="text-center mb-10">
-                <h3 class="text-3xl font-extrabold mb-2 tracking-tight">Buat Akun</h3>
-                <p class="text-gray-400 text-sm font-medium">Bergabung dengan ekosistem kreator AI.</p>
+                <h2 class="text-3xl font-extrabold mb-2">Buat Akun Gratis</h2>
+                <p class="text-slate-400 text-sm">Mulai ciptakan konten viral dengan AI ViraLens</p>
             </div>
             <form onsubmit="event.preventDefault(); loginSuccess();" class="space-y-4">
-                <div class="relative"><i class="far fa-user absolute left-4 top-4 text-gray-400"></i><input type="text" placeholder="Nama Lengkap" class="input-premium" required></div>
-                <div class="relative"><i class="far fa-envelope absolute left-4 top-4 text-gray-400"></i><input type="email" placeholder="Email" class="input-premium" required></div>
-                <div class="relative"><i class="fas fa-lock absolute left-4 top-4 text-gray-400"></i><input type="password" placeholder="Password" class="input-premium" required></div>
-                <div class="relative"><i class="fas fa-check-circle absolute left-4 top-4 text-gray-400"></i><input type="password" placeholder="Ulangi Password" class="input-premium" required></div>
-                <button type="submit" class="w-full btn-brand py-4 rounded-2xl font-bold text-lg mt-4">Daftar Sekarang</button>
+                <div class="relative"><i class="far fa-user absolute left-4 top-4 text-slate-400"></i><input type="text" placeholder="Nama Lengkap" class="input-custom"></div>
+                <div class="relative"><i class="far fa-envelope absolute left-4 top-4 text-slate-400"></i><input type="email" placeholder="john@example.com" class="input-custom"></div>
+                <div class="relative"><i class="fas fa-lock absolute left-4 top-4 text-slate-400"></i><input type="password" placeholder="Minimal 6 karakter" class="input-custom"></div>
+                <div class="relative"><i class="fas fa-lock absolute left-4 top-4 text-slate-400"></i><input type="password" placeholder="Ulangi password" class="input-custom"></div>
+                <button type="submit" class="w-full btn-primary text-white py-4 rounded-2xl font-bold text-lg mt-4 shadow-xl">Daftar Sekarang</button>
             </form>
-            <p class="text-center mt-8 text-sm font-medium text-gray-400">Sudah punya akun? <button onclick="showForm('login')" class="text-indigo-600 font-bold">Login</button></p>
+            <p class="text-center mt-8 text-sm text-slate-500">Sudah punya akun? <button onclick="toggleForm('login')" class="text-indigo-600 font-bold hover:underline">Login di sini</button></p>
         </div>
 
-        <div id="formLogin" class="modal-content bg-white w-full max-w-md p-10 rounded-[32px] shadow-2xl relative hidden">
-            <button onclick="closeModal()" class="absolute top-6 right-6 text-gray-300 hover:text-gray-900"><i class="fas fa-times"></i></button>
+        <div id="logForm" class="bg-white w-full max-w-md p-10 rounded-[40px] shadow-2xl relative text-slate-900 hidden">
+            <button onclick="closeModal()" class="absolute top-6 right-8 text-slate-300 hover:text-slate-900"><i class="fas fa-times text-xl"></i></button>
             <div class="text-center mb-10">
-                <h3 class="text-3xl font-extrabold mb-2 tracking-tight">Selamat Datang</h3>
-                <p class="text-gray-400 text-sm font-medium">Masukkan kredensial Anda untuk masuk.</p>
+                <h2 class="text-3xl font-extrabold mb-2">Selamat Datang</h2>
+                <p class="text-slate-400 text-sm">Masuk kembali ke akun ViraLens Anda</p>
             </div>
             <form onsubmit="event.preventDefault(); loginSuccess();" class="space-y-4">
-                <div class="relative"><i class="far fa-envelope absolute left-4 top-4 text-gray-400"></i><input type="email" placeholder="Email" class="input-premium" required></div>
-                <div class="relative"><i class="fas fa-lock absolute left-4 top-4 text-gray-400"></i><input type="password" placeholder="Password" class="input-premium" required></div>
+                <div class="relative"><i class="far fa-envelope absolute left-4 top-4 text-slate-400"></i><input type="email" placeholder="Email Anda" class="input-custom"></div>
+                <div class="relative"><i class="fas fa-lock absolute left-4 top-4 text-slate-400"></i><input type="password" placeholder="Password" class="input-custom"></div>
                 <div class="text-right"><button type="button" class="text-xs font-bold text-indigo-600">Lupa password?</button></div>
-                <button type="submit" class="w-full btn-brand py-4 rounded-2xl font-bold text-lg mt-4">Masuk Sekarang</button>
+                <button type="submit" class="w-full btn-primary text-white py-4 rounded-2xl font-bold text-lg shadow-xl">Masuk Sekarang</button>
             </form>
-            <p class="text-center mt-8 text-sm font-medium text-gray-400">Belum punya akun? <button onclick="showForm('register')" class="text-indigo-600 font-bold">Daftar</button></p>
+            <p class="text-center mt-8 text-sm text-slate-500">Belum punya akun? <button onclick="toggleForm('register')" class="text-indigo-600 font-bold hover:underline">Daftar gratis</button></p>
         </div>
     </div>
 
     <script>
         function openModal(type) {
             document.getElementById('authModal').style.display = 'flex';
-            showForm(type);
+            toggleForm(type);
         }
         function closeModal() { document.getElementById('authModal').style.display = 'none'; }
-        
-        function showForm(type) {
-            document.getElementById('formRegister').classList.toggle('hidden', type !== 'register');
-            document.getElementById('formLogin').classList.toggle('hidden', type !== 'login');
+        function toggleForm(type) {
+            document.getElementById('regForm').style.display = type === 'register' ? 'block' : 'none';
+            document.getElementById('logForm').style.display = type === 'login' ? 'block' : 'none';
         }
-
         function loginSuccess() {
             closeModal();
             document.getElementById('landingView').style.display = 'none';
             document.getElementById('dashboardView').style.display = 'block';
+            document.body.style.backgroundColor = '#f8fafc';
             window.scrollTo(0,0);
         }
-
         function logout() {
             document.getElementById('dashboardView').style.display = 'none';
             document.getElementById('landingView').style.display = 'block';
+            document.body.style.backgroundColor = '#0b0f1a';
         }
-
         window.onclick = function(e) { if(e.target.id === 'authModal') closeModal(); }
     </script>
 </body>
